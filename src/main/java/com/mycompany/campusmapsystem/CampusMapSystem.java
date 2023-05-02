@@ -5,7 +5,7 @@
 
 package com.mycompany.campusmapsystem;
 
-import model.*;
+import login.*;
 
 /**
  *
@@ -14,8 +14,7 @@ import model.*;
 public class CampusMapSystem {
 
     public static void main(String[] args) {
-        System.out.println("헬로");
-        ConnectDb conn = new ConnectDb();
-        conn.signUp("a", "b", "c");
+        SignUpSystem test = new SignUpSystem("test", "test", "test");
+        test.saveMemberInfo();
     }
 }

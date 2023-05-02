@@ -10,15 +10,15 @@ import java.sql.*;
  *
  * @author LG
  */
-public class ConnectDb {
-
+public class ConnectDb {    //DB 관리
+    
     private static final String JDBC_DRIVER = "oracle.jdbc.driver.OracleDriver";
     private static final String DB_URL = "jdbc:oracle:thin:@sedb.deu.ac.kr:1521/orcl";
     private static final String USER = "a20193172";
     private static final String PW = "20193172";
     private Connection conn;
 
-    public ConnectDb() {
+    public ConnectDb() {    //DB 연결
         try {
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(DB_URL, USER, PW);
@@ -27,7 +27,7 @@ public class ConnectDb {
         }
     }
 
-    public void signUp(String id, String pw, String name) {
+    public void signUp(String id, String pw, String name) { //회원정보 저장
         try {
             String sql = "INSERT INTO member VALUES (?, ?, ?)";
             PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -35,7 +35,7 @@ public class ConnectDb {
             pstmt.setString(2, pw);
             pstmt.setString(3, name);
             int result = pstmt.executeUpdate();
-            
+
             if (result > 0) {
                 System.out.println("회원 가입이 완료되었습니다.");
             } else {
