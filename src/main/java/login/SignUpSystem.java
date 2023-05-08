@@ -4,7 +4,7 @@
  */
 package login;
 
-import model.ConnectDb;
+import model.*;
 
 /**
  *
@@ -12,19 +12,23 @@ import model.ConnectDb;
  */
 public class SignUpSystem {
 
-    private final String id;
-    private final String pw;
-    private final String name;
+    private String id;
+    private String pw;
+    private String name;
 
     public SignUpSystem(String id, String pw, String name) {
         this.id = id;
         this.pw = pw;
         this.name = name;
     }
-
+    public void cheackInfo(){
+        UserDAO userDao = new UserDAOImpl();
+        if (userDao.findById(id) != null){
+            
+        }
+    }
     public void saveMemberInfo() {
-        ConnectDb cd = new ConnectDb();
-        cd.signUp(id, pw, name);
+        
     }
 
 }

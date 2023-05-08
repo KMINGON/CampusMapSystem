@@ -6,6 +6,7 @@
 package com.mycompany.campusmapsystem;
 
 import login.*;
+import model.*;
 
 /**
  *
@@ -14,7 +15,7 @@ import login.*;
 public class CampusMapSystem {
 
     public static void main(String[] args) {
-        SignUpSystem test = new SignUpSystem("test", "test", "test");
-        test.saveMemberInfo();
+        UserDAO userDao = new UserDAOImpl();
+        System.out.println(userDao.findById("asdk"));
     }
 }
