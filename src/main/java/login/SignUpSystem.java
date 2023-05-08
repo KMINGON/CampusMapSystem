@@ -12,23 +12,23 @@ import model.*;
  */
 public class SignUpSystem {
 
-    private String id;
-    private String pw;
-    private String name;
+    User user;
+    UserDAO userDao;
 
-    public SignUpSystem(String id, String pw, String name) {
-        this.id = id;
-        this.pw = pw;
-        this.name = name;
+    public SignUpSystem(User user) {
+        this.user = user;
     }
-    public void cheackInfo(){
-        UserDAO userDao = new UserDAOImpl();
-        if (userDao.findById(id) != null){
-            
+    
+    public boolean cheackInfo(){
+        userDao = new UserDAOImpl();
+        if (userDao.findById(user.getId()) != null){
+            saveMemberInfo();
+            return true;
         }
+        return false;
     }
     public void saveMemberInfo() {
-        
+        userDao.insert(user);
     }
 
 }

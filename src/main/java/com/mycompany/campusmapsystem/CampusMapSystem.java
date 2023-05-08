@@ -15,7 +15,5 @@ import model.*;
 public class CampusMapSystem {
 
     public static void main(String[] args) {
-        UserDAO userDao = new UserDAOImpl();
-        System.out.println(userDao.findById("asdk"));
     }
 }
