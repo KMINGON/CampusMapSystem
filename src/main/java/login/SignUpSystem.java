@@ -18,17 +18,18 @@ public class SignUpSystem {
     public SignUpSystem(User user) {
         this.user = user;
     }
-    
-    public boolean cheackInfo(){
+
+    private boolean cheackInfo() {
         userDao = new UserDAOImpl();
-        if (userDao.findById(user.getId()) != null){
-            saveMemberInfo();
+        if (userDao.findById(user.getId()) == null) {
             return true;
         }
         return false;
     }
-    public void saveMemberInfo() {
-        userDao.insert(user);
-    }
 
+    public void saveMemberInfo() {
+        if (cheackInfo()) {
+            userDao.insert(user);
+        }
+    }
 }

@@ -19,9 +19,14 @@ public class User {
         this.name = name;
     }
     
+    public User(String id, String pw) {
+        this.id = id;
+        this.pw = pw;
+        this.name = null;
+    }
     @Override
     public String toString(){
-        return "User : " + name + " > " + "id=" + id + ", pw=" + pw;
+        return "User name : " + name + " > " + "id=" + id + ", pw=" + pw;
     }
     
     public String getId() {
