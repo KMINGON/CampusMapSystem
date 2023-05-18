@@ -1,0 +1,94 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package model;
+
+import java.sql.Date;
+
+/**
+ *
+ * @author LG
+ */
+public class Post {
+    private String userId;
+    private String userName;
+    private String bdTitle;
+    private String bdContent;
+    private Date bdDate; 
+    private int bdViewCnt;
+    private int bdNo;
+
+    public Post(String userId, String userName, String bdTitle, String bdContent, Date bdDate, int bdViewCnt, int bdNo) {
+        this.userId = userId;
+        this.userName = userName;
+        this.bdTitle = bdTitle;
+        this.bdContent = bdContent;
+        this.bdDate = bdDate;
+        this.bdViewCnt = bdViewCnt;
+        this.bdNo = bdNo;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getBdTitle() {
+        return bdTitle;
+    }
+
+    public void setBdTitle(String bdTitle) {
+        this.bdTitle = bdTitle;
+    }
+
+    public String getBdContent() {
+        return bdContent;
+    }
+
+    public void setBdContent(String bdContent) {
+        this.bdContent = bdContent;
+    }
+
+    public Date getBdDate() {
+        return bdDate;
+    }
+
+    public void setBdDate(Date bdDate) {
+        this.bdDate = bdDate;
+    }
+
+    public int getBdViewCnt() {
+        return bdViewCnt;
+    }
+
+    public void setBdViewCnt(int bdViewCnt) {
+        this.bdViewCnt = bdViewCnt;
+    }
+
+    public int getBdNo() {
+        return bdNo;
+    }
+
+    public void setBdNo(int bdNo) {
+        this.bdNo = bdNo;
+    }
+
+    
+
+    
+    
+    
+    
+}
