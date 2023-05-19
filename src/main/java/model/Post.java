@@ -15,18 +15,28 @@ public class Post {
     private String userName;
     private String bdTitle;
     private String bdContent;
-    private Date bdDate; 
+    private String bdDate; 
     private int bdViewCnt;
+    private int bdBuildNum;
     private int bdNo;
 
-    public Post(String userId, String userName, String bdTitle, String bdContent, Date bdDate, int bdViewCnt, int bdNo) {
+    public Post(String userId, String userName, String bdTitle, String bdContent, String bdDate, int bdViewCnt, int bdBuildNum, int bdNo) {
         this.userId = userId;
         this.userName = userName;
         this.bdTitle = bdTitle;
         this.bdContent = bdContent;
         this.bdDate = bdDate;
         this.bdViewCnt = bdViewCnt;
+        this.bdBuildNum = bdBuildNum;
         this.bdNo = bdNo;
+    }
+
+    public int getBdBuildNum() {
+        return bdBuildNum;
+    }
+
+    public void setBdBuildNum(int bdBuildNum) {
+        this.bdBuildNum = bdBuildNum;
     }
 
     public String getUserId() {
@@ -61,11 +71,11 @@ public class Post {
         this.bdContent = bdContent;
     }
 
-    public Date getBdDate() {
+    public String getBdDate() {
         return bdDate;
     }
 
-    public void setBdDate(Date bdDate) {
+    public void setBdDate(String bdDate) {
         this.bdDate = bdDate;
     }
 

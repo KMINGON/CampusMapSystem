@@ -14,8 +14,8 @@ import java.util.*;
 public interface boardDAO {
     public void insert(Post post);
     public List<Post> findAll();
-    public User findById(int no);
-    public void update(Post post);
+    public Post findById(int no);
+    public void update(int no, Post post);
     public void delete(Post post);
     public void deleteById(int no);
 }

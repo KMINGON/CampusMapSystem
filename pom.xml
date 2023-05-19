@@ -22,6 +22,11 @@
             <groupId>com.oracle.ojdbc</groupId>
             <artifactId>orai18n</artifactId>
             <version>19.3.0.0</version>
-        </dependency>
+        </dependency> 
+        <dependency>   
+  	<groupId>mysql</groupId>  
+    	<artifactId>mysql-connector-java</artifactId>
+    	<version>5.1.45</version>
+    </dependency>
     </dependencies>
 </project>
