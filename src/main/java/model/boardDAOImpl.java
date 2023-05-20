@@ -30,13 +30,12 @@ public class boardDAOImpl implements boardDAO {
     @Override
     public void insert(Post post) {
         try {
-            String format = "INSERT INTO %s VALUES(%s, '%s', '%s', '%s', '%s', '%s', %s, %s)";
+            String format = "INSERT INTO %s(bdNo, userId, userName, bdTitle, bdContent, bdViewCnt, bdBuildNum) VALUES(%s, '%s', '%s', '%s', '%s', %s, %s)";
             String query = String.format(format,
                     "BOARD",
                     post.getBdNo(), post.getUserId(),
                     post.getUserName(), post.getBdTitle(),
-                    post.getBdContent(), post.getBdDate(),
-                    post.getBdViewCnt(), post.getBdBuildNum());
+                    post.getBdContent(),post.getBdViewCnt(), post.getBdBuildNum());
             stat.executeUpdate(query);
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -56,7 +55,7 @@ public class boardDAOImpl implements boardDAO {
                         rs.getString("userName"),
                         rs.getString("bdTitle"),
                         rs.getString("bdContent"),
-                        rs.getString("bdDate"),
+                        rs.getTimestamp("bdDate"),
                         rs.getInt("bdViewCnt"),
                         rs.getInt("bdBuildNum"),
                         rs.getInt("bdNo")
@@ -81,7 +80,7 @@ public class boardDAOImpl implements boardDAO {
                         rs.getString("userName"),
                         rs.getString("bdTitle"),
                         rs.getString("bdContent"),
-                        rs.getString("bdDate"),
+                        rs.getTimestamp("bdDate"),
                         rs.getInt("bdViewCnt"),
                         rs.getInt("bdBuildNum"),
                         rs.getInt("bdNo")

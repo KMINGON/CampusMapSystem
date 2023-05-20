@@ -4,7 +4,7 @@
  */
 package model;
 
-import java.sql.Date;
+import java.sql.*;
 
 /**
  *
@@ -15,12 +15,12 @@ public class Post {
     private String userName;
     private String bdTitle;
     private String bdContent;
-    private String bdDate; 
+    private Timestamp bdDate; 
     private int bdViewCnt;
     private int bdBuildNum;
     private int bdNo;
 
-    public Post(String userId, String userName, String bdTitle, String bdContent, String bdDate, int bdViewCnt, int bdBuildNum, int bdNo) {
+    public Post(String userId, String userName, String bdTitle, String bdContent, Timestamp bdDate, int bdViewCnt, int bdBuildNum, int bdNo) {
         this.userId = userId;
         this.userName = userName;
         this.bdTitle = bdTitle;
@@ -71,11 +71,11 @@ public class Post {
         this.bdContent = bdContent;
     }
 
-    public String getBdDate() {
+    public Timestamp getBdDate() {
         return bdDate;
     }
 
-    public void setBdDate(String bdDate) {
+    public void setBdDate(Timestamp bdDate) {
         this.bdDate = bdDate;
     }
 

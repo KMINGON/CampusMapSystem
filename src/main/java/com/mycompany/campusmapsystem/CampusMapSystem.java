@@ -15,7 +15,7 @@ import model.*;
 public class CampusMapSystem {
 
     public static void main(String[] args) {
-        new boardDAOImpl().update(1,new Post("utest", "utest", "utest", "utest", "utest", 2, 2, 1));
+        new boardDAOImpl().insert(new Post("ttest", "ttest", "ttest", "ttest", null, 1, 1, 1));
         new SignUpSystem(new User("아디", "비번", "이름")).saveMemberInfo();
         System.out.println(new SignInSystem(new User("아디", "비번")).cheackInfo());
     }
