@@ -5,134 +5,60 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class postlookupFrame extends JFrame {
-    private JButton cancel;
-    private JLabel date, lookup, title, username,views;
-    private JTextField dateTextField, titleTextField, usernameTextField, viewsTextField ;
-    private JScrollPane jScrollPane3;
-    private JTextArea contentTextArea;
-    
+     private JLabel titleLabel = new JLabel("게시물 제목");
+    private JTextArea contentArea = new JTextArea("게시물 내용");
+    private JLabel viewCountLabel = new JLabel("조회수: 0");
+    private JLabel authorLabel = new JLabel("작성자 이름");
+    private JLabel dateLabel = new JLabel("작성 일자");
+    private JButton closeButton = new JButton("닫기");
     public postlookupFrame() {
         initComponents();
     }
 
     private void initComponents() {
-        jScrollPane3 = new JScrollPane();
-        contentTextArea = new JTextArea();
-        title = new JLabel();
-        username = new JLabel();
-        date = new JLabel();
-        views = new JLabel();
-        lookup = new JLabel();
-        titleTextField = new JTextField();
-        cancel = new JButton();
-        usernameTextField = new JTextField();
-        dateTextField = new JTextField();
-        viewsTextField = new JTextField();
+        setTitle("게시물 조회");
+        setSize(600, 400);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setResizable(false);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        JPanel panel = new JPanel(null);
+        panel.setBackground(new Color(245, 245, 245));
 
-        contentTextArea.setColumns(20);
-        contentTextArea.setRows(5);
-        jScrollPane3.setViewportView(contentTextArea);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 25));
+        titleLabel.setBounds(20, 20, 560, 30);
+        panel.add(titleLabel);
 
-        title.setText("글 제목:");
+        contentArea.setEditable(false);
+        contentArea.setWrapStyleWord(true);
+        contentArea.setLineWrap(true);
+        contentArea.setFont(new Font("Arial", Font.PLAIN, 20));
+        contentArea.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        contentArea.setBounds(20, 70, 560, 140);
+        contentArea.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
 
-        username.setText("사용자 이름:");
+        JScrollPane scroll = new JScrollPane(contentArea);
+        scroll.setBorder(null);
+        scroll.setBounds(20, 70, 560, 140);
+        panel.add(scroll);
 
-        date.setText("작성일자: ");
+        viewCountLabel.setBounds(20, 240, 100, 20);
+        panel.add(viewCountLabel);
 
-        views.setText("조회수:");
+        authorLabel.setBounds(200, 240, 100, 20);
+        panel.add(authorLabel);
 
-        lookup.setText("글 조회");
+        dateLabel.setBounds(380, 240, 200, 20);
+        panel.add(dateLabel);
 
-        cancel.setText("닫기");
-        
-        
-        Font font1 = new Font("맑은 고딕", Font.BOLD,13);
-        Font font2 = new Font("맑은 고딕", Font.PLAIN,13);
-        
-        title.setFont(font1);
-        username.setFont(font1);
-        date.setFont(font1);
-        views.setFont(font1);
-        lookup.setFont(font1);
-        cancel.setFont(font1);
-        dateTextField.setFont(font2);
-        titleTextField.setFont(font2);
-        usernameTextField.setFont(font2);
-        contentTextArea.setFont(font2);
-        
+        closeButton.setBounds(260, 300, 80, 30);
+        closeButton.setBorder(null);
+        closeButton.setBackground(new Color(50, 150, 255));
+        closeButton.setForeground(Color.WHITE);
+        panel.add(closeButton);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-                        layout.createSequentialGroup().addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(date).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 99,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(views).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(viewsTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 72,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18))
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-                        layout.createSequentialGroup().addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-                                                layout.createSequentialGroup().addComponent(lookup)
-                                                        .addGap(228, 228, 228))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-                                                layout.createSequentialGroup().addComponent(cancel)
-                                                        .addGap(15, 15, 15))))
-                .addGroup(layout.createSequentialGroup().addGap(20, 20, 20).addGroup(layout
-                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane3)
-                        .addGroup(layout.createSequentialGroup().addComponent(username)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(usernameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup().addComponent(title)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(titleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 410,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(22, Short.MAX_VALUE)));
-        layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup().addContainerGap().addComponent(lookup)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(title).addComponent(titleTextField,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(username).addComponent(usernameTextField,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 334,
-                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(date).addComponent(dateTextField,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(views).addComponent(viewsTextField,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cancel).addGap(10, 10, 10)));
-
-        pack();
+        getContentPane().add(panel);
         setVisible(true);
-    }
-    
-    private void cancelActionPerformed(ActionEvent evt) {
-        dispose();
     }
 }
 
