@@ -11,13 +11,13 @@ import java.util.*;
  *
  * @author LG
  */
-public class boardDAOImpl implements boardDAO {
+public class BoardDAOImpl implements BoardDAO {
 
     private Connection conn;
     Statement stat = null;
     ResultSet rs = null;
 
-    public boardDAOImpl() {
+    public BoardDAOImpl() {
         ConnectOrcleDb connDB = new ConnectOrcleDb();
         conn = connDB.getConn();
         try {
@@ -28,14 +28,14 @@ public class boardDAOImpl implements boardDAO {
     }
 
     @Override
-    public void insert(Post post) {
+    public void insert(Board board) {
         try {
             String format = "INSERT INTO %s(bdNo, userId, userName, bdTitle, bdContent, bdViewCnt, bdBuildNum) VALUES(%s, '%s', '%s', '%s', '%s', %s, %s)";
             String query = String.format(format,
                     "BOARD",
-                    post.getBdNo(), post.getUserId(),
-                    post.getUserName(), post.getBdTitle(),
-                    post.getBdContent(),post.getBdViewCnt(), post.getBdBuildNum());
+                    board.getBdNo(), board.getUserId(),
+                    board.getUserName(), board.getBdTitle(),
+                    board.getBdContent(),board.getBdViewCnt(), board.getBdBuildNum());
             stat.executeUpdate(query);
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -43,14 +43,14 @@ public class boardDAOImpl implements boardDAO {
     }
 
     @Override
-    public List<Post> findAll() {
-        ArrayList<Post> posts = new ArrayList();
+    public List<Board> findAll() {
+        ArrayList<Board> boards = new ArrayList();
         try {
             String format = "SELECT * FROM %s";
             String query = String.format(format, "BOARD");
             rs = stat.executeQuery(query);
             while (rs.next()) {
-                posts.add(new Post(
+                boards.add(new Board(
                         rs.getString("userId"),
                         rs.getString("userName"),
                         rs.getString("bdTitle"),
@@ -64,18 +64,18 @@ public class boardDAOImpl implements boardDAO {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return posts;
+        return boards;
     }
 
     @Override
-    public Post findById(int no) {
-        Post post = null;
+    public Board findById(int id) {
+        Board board = null;
         try {
             String format = "SELECT * FROM %s WHERE bdNo = %s";
-            String query = String.format(format, "BOARD", no);
+            String query = String.format(format, "BOARD", id);
             rs = stat.executeQuery(query);
             while (rs.next()) {
-                post = new Post(
+                board = new Board(
                         rs.getString("userId"),
                         rs.getString("userName"),
                         rs.getString("bdTitle"),
@@ -89,21 +89,21 @@ public class boardDAOImpl implements boardDAO {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return post;
+        return board;
     }
 
     @Override
-    public void update(int no, Post post) {
-        Post p = findById(no);
+    public void update(int id, Board board) {
+        Board p = findById(id);
         if (p != null) {
             try {
                 String format = "UPDATE %s SET  userId = '%s', userName = '%s', bdTitle='%s', bdContent='%s', bdDate='%s', bdViewCnt=%s, bdBuildNum=%s WHERE bdNo = %s";
                 String query = String.format(
                         format, "BOARD",
-                        post.getUserId(), post.getUserName(),
-                        post.getBdTitle(), post.getBdContent(),
-                        post.getBdDate(), post.getBdViewCnt(),
-                        post.getBdBuildNum(), post.getBdNo()
+                        board.getUserId(), board.getUserName(),
+                        board.getBdTitle(), board.getBdContent(),
+                        board.getBdDate(), board.getBdViewCnt(),
+                        board.getBdBuildNum(), board.getBdNo()
                 );
                 stat.executeUpdate(query);
             } catch (SQLException ex) {
@@ -113,15 +113,15 @@ public class boardDAOImpl implements boardDAO {
     }
 
     @Override
-    public void delete(Post post) {
-        deleteById(post.getBdNo());
+    public void delete(Board board) {
+        deleteById(board.getBdNo());
     }
 
     @Override
-    public void deleteById(int no) {
+    public void deleteById(int id) {
         try {
             String format = "DELETE FROM %s WHERE bdNo = %s";
-            String query = String.format(format, "BOARD", no);
+            String query = String.format(format, "BOARD", id);
             stat.executeUpdate(query);
         } catch (SQLException ex) {
             ex.printStackTrace();

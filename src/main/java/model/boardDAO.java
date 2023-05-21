@@ -6,16 +6,15 @@ package model;
 
 import java.util.*;
 
-
 /**
  *
  * @author LG
  */
-public interface boardDAO {
-    public void insert(Post post);
-    public List<Post> findAll();
-    public Post findById(int no);
-    public void update(int no, Post post);
-    public void delete(Post post);
-    public void deleteById(int no);
+public interface BoardDAO {
+    public void insert(Board board);
+    public List<Board> findAll();
+    public Board findById(int id);
+    public void update(int id, Board board);
+    public void delete(Board board);
+    public void deleteById(int id);
 }

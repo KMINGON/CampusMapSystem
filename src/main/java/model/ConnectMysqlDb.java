@@ -22,7 +22,6 @@ public class ConnectMysqlDb {
         if (conn == null) {
             try {
                 Class.forName(JDBC_DRIVER);
-                System.out.println("test");
                 conn = DriverManager.getConnection(jdbcDriver, dbUser, dbPass);
             } catch (ClassNotFoundException | SQLException e) {
                 throw new RuntimeException(e);

@@ -10,7 +10,7 @@ import java.sql.*;
  *
  * @author LG
  */
-public class Post {
+public class Board {
     private String userId;
     private String userName;
     private String bdTitle;
@@ -20,7 +20,7 @@ public class Post {
     private int bdBuildNum;
     private int bdNo;
 
-    public Post(String userId, String userName, String bdTitle, String bdContent, Timestamp bdDate, int bdViewCnt, int bdBuildNum, int bdNo) {
+    public Board(String userId, String userName, String bdTitle, String bdContent, Timestamp bdDate, int bdViewCnt, int bdBuildNum, int bdNo) {
         this.userId = userId;
         this.userName = userName;
         this.bdTitle = bdTitle;
