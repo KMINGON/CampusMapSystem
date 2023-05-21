@@ -65,12 +65,4 @@ public class LoginFrame extends JFrame {
         signUpButt.setBounds(220, 170, 100, 30);
     }
         
-    
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                LoginFrame frame = new LoginFrame();
-            }
-        });
-    }
 }

@@ -62,12 +62,6 @@ public class SignUpFrame extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         
     }
-    
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                SignUpFrame frame = new SignUpFrame();
-            }
-        });
-    }
 }
+    
+    

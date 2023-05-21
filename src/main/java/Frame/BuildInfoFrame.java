@@ -89,29 +89,14 @@ public class BuildInfoFrame extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            String buildingName = "건물 이름";
-            String buildingInfo = "건물에 대한 정보.";
-            BuildInfoFrame frame = new BuildInfoFrame(buildingName, buildingInfo);
-            try {
-                // Load the image from the file
-                BufferedImage image = ImageIO.read(new File("Frame/src/image/campus-img00.jpg"));
-
-                // Update the image size if desired
-                int width = 200; // Specify the desired width
-                int height = 200; // Specify the desired height
-                Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-
-                // Set the scaled image to the label
-                frame.setBuildingImage(scaledImage);
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        });
+    BuildInfoFrame() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+
 
     public void setBuildingImage(Image image) {
         buildingImageTextField.setIcon(new ImageIcon(image));
     }
 }
+

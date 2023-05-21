@@ -14,6 +14,8 @@ package Frame;
 public class Frame {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        new LoginFrame();
+        new SignUpFrame();
+        new MainFrame();
     }
 }
