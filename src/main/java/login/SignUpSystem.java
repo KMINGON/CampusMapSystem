@@ -15,12 +15,15 @@ public class SignUpSystem {
     User user;
     UserDAO userDao;
 
-    public SignUpSystem(User user) {
-        this.user = user;
+    public SignUpSystem(UserDAO userDao) {
+        this.userDao = userDao;
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
     private boolean cheackInfo() {
-        userDao = new UserDAOImpl();
         if (userDao.findById(user.getId()) == null) {
             return true;
         }

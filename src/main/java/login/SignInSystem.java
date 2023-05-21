@@ -11,19 +11,18 @@ import model.*;
  * @author LG
  */
 public class SignInSystem {
-    User user;
     UserDAO userDao;
 
-    public SignInSystem(User user) {
-        this.user = user;
+    public SignInSystem(UserDAO userDao) {
+        this.userDao = userDao;
     }
     
-    public boolean cheackInfo(){
-        userDao = new UserDAOImpl();
+    public boolean signIn(User user){
         User u = userDao.findById(user.getId());
         if (u != null && u.getPw().equals(user.getPw())){
             return true;
         }
         return false;
     }
+    
 }
