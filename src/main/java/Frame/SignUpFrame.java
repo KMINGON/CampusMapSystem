@@ -17,8 +17,8 @@ import java.awt.event.ActionListener;
 class SignUpFrame extends JFrame {
     JLabel titleLabel, idLabel, pwLabel, nameLabel, infoLabel;
     JTextField idText, nameText;
-    JPasswordField pwText;
-    JButton registerButton, backButton, idDuplicateButton, pwDuplicateButton;
+    JPasswordField pwText, pwCheckText;
+    JButton registerButton, backButton, idDuplicateButton;
 
     public SignUpFrame() {
         super("회원가입");
@@ -76,25 +76,22 @@ class SignUpFrame extends JFrame {
         pwText.setBounds(135, 150, 200, 40);
         pwText.setBorder(BorderFactory.createTitledBorder("PW")); 
         panel.add(pwText);
+        
+        pwText = new JPasswordField();
+        pwText.setBounds(135, 220, 200, 40);
+        pwText.setBorder(BorderFactory.createTitledBorder("PW확인")); 
+        panel.add(pwText);
 
-       
-        pwDuplicateButton = new JButton("PW 중복확인");
-        pwDuplicateButton.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
-        pwDuplicateButton.setForeground(Color.WHITE);
-        pwDuplicateButton.setBackground(new Color(125, 105, 167));
-        pwDuplicateButton.setBounds(350, 160, 100, 30);
-        panel.add(pwDuplicateButton);
 
-        // Create and add the Name text field
         nameText = new JTextField();
-        nameText.setBounds(135, 220, 200, 40);
+        nameText.setBounds(135, 290, 200, 40);
         nameText.setBorder(BorderFactory.createTitledBorder("이름")); // Add title to the text field
         panel.add(nameText);
 
-        // Create and add the register button
+
         registerButton = new JButton("등록");
         registerButton.setFont(new Font("맑은 고딕", Font.PLAIN, 16)); // 맑은 고딕 폰트
-        registerButton.setBounds(290, 300, 120, 40);
+        registerButton.setBounds(290, 350, 120, 40);
         registerButton.setBackground(new Color(125, 105, 167)); // 약간 연한 보라색
         registerButton.setForeground(Color.WHITE);
         panel.add(registerButton);
@@ -102,7 +99,7 @@ class SignUpFrame extends JFrame {
         // Create and add the back button
         backButton = new JButton("뒤로 가기");
         backButton.setFont(new Font("맑은 고딕", Font.PLAIN, 16)); // 맑은 고딕 폰트
-        backButton.setBounds(70, 300, 120, 40);
+        backButton.setBounds(70, 350, 120, 40);
         backButton.setBackground(new Color(125, 105, 167)); // 약간 연한 보라색
         backButton.setForeground(Color.WHITE);
         panel.add(backButton);

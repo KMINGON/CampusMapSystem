@@ -66,17 +66,8 @@ public class BuildInfoFrame2 extends JFrame {
         descriptionScrollPane.setBounds(100, 400, 600, 150);
         add(descriptionScrollPane);
 
-        // Create and add the bulletin board table
-        DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("게시판 제목");
-        model.addColumn("작성자");
-        model.addColumn("작성일");
 
-        // Add sample data to the table
-        model.addRow(new Object[]{"게시글 1", "작성자 1", "2023-05-22"});
-        model.addRow(new Object[]{"게시글 2", "작성자 2", "2023-05-23"});
-
-        bulletinBoardTable = new JTable(model);
+        bulletinBoardTable = new JTable();
         bulletinBoardTable.setEnabled(false); 
         bulletinBoardTable.setBackground(Color.WHITE);
         JScrollPane bulletinBoardScrollPane = new JScrollPane(bulletinBoardTable);
