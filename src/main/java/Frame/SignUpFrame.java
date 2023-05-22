@@ -18,7 +18,7 @@ class SignUpFrame extends JFrame {
     JLabel titleLabel, idLabel, pwLabel, nameLabel, infoLabel;
     JTextField idText, nameText;
     JPasswordField pwText;
-    JButton registerButton, backButton;
+    JButton registerButton, backButton, idDuplicateButton, pwDuplicateButton;
 
     public SignUpFrame() {
         super("회원가입");
@@ -60,14 +60,30 @@ class SignUpFrame extends JFrame {
         // Create and add the ID text field
         idText = new JTextField();
         idText.setBounds(135, 80, 200, 40);
-        idText.setBorder(BorderFactory.createTitledBorder("ID")); // Add title to the text field
+        idText.setBorder(BorderFactory.createTitledBorder("ID")); 
         panel.add(idText);
+
+
+        idDuplicateButton = new JButton("ID 중복확인");
+        idDuplicateButton.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
+        idDuplicateButton.setForeground(Color.WHITE);
+        idDuplicateButton.setBackground(new Color(125, 105, 167));
+        idDuplicateButton.setBounds(350, 90, 100, 30);
+        panel.add(idDuplicateButton);
 
         // Create and add the PW password field
         pwText = new JPasswordField();
         pwText.setBounds(135, 150, 200, 40);
-        pwText.setBorder(BorderFactory.createTitledBorder("PW")); // Add title to the password field
+        pwText.setBorder(BorderFactory.createTitledBorder("PW")); 
         panel.add(pwText);
+
+       
+        pwDuplicateButton = new JButton("PW 중복확인");
+        pwDuplicateButton.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
+        pwDuplicateButton.setForeground(Color.WHITE);
+        pwDuplicateButton.setBackground(new Color(125, 105, 167));
+        pwDuplicateButton.setBounds(350, 160, 100, 30);
+        panel.add(pwDuplicateButton);
 
         // Create and add the Name text field
         nameText = new JTextField();
@@ -102,6 +118,5 @@ class SignUpFrame extends JFrame {
                 new LoginFrame();
             }
         });
-
     }
 }
