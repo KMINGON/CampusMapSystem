@@ -13,7 +13,8 @@ import static javax.swing.JOptionPane.showMessageDialog;
 public class Noticeboard {
 
     public static void main(String args[]) {
-        new postlookupFrame();
+        new CreatePostForm();
+        new ViewPostForm();
     }
 }
 
