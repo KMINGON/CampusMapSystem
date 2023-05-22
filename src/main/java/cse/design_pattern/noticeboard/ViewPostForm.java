@@ -9,7 +9,7 @@ public class ViewPostForm extends JFrame {
     private JLabel titleLabel, titleTextLabel, viewCountNameLabel, viewCountNumberLabel, authorNameLabel,
             authorTextLabel, userIdNameLabel, userIdTextLabel, dateNameLabel, dateTextLabel;
     private JTextArea contentArea;
-    private JButton closeButton;
+    private JButton closeButton, editButton, deleteButton;
     private Font font1 = new Font("맑은 고딕", Font.BOLD, 16);
     private Font font2 = new Font("맑은 고딕", Font.PLAIN, 16);
 
@@ -66,6 +66,34 @@ public class ViewPostForm extends JFrame {
         closeButton.setForeground(Color.WHITE);
         closeButton.setFocusPainted(false);
         closeButton.setPreferredSize(new Dimension(80, 30));
+        
+        editButton = new JButton("수정");
+        editButton.setFont(font1);
+        editButton.setBackground(new Color(125, 105, 167));
+        editButton.setForeground(Color.WHITE);
+        editButton.setFocusPainted(false);
+        editButton.setPreferredSize(new Dimension(80, 30));
+
+        editButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            // 수정 로직을 여기에 작성하세요.
+            }
+            });
+
+    deleteButton = new JButton("삭제");
+    deleteButton.setFont(font1);
+    deleteButton.setBackground(new Color(125, 105, 167));
+    deleteButton.setForeground(Color.WHITE);
+    deleteButton.setFocusPainted(false);
+    deleteButton.setPreferredSize(new Dimension(80, 30));
+
+    deleteButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // 삭제 로직을 여기에 작성하세요.
+        }
+    });
 
         JPanel infoPanel = new JPanel();
         infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
@@ -102,10 +130,15 @@ public class ViewPostForm extends JFrame {
 
         JPanel closeButtonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         closeButtonPanel.setBackground(Color.WHITE);
+        closeButtonPanel.add(editButton); 
+        closeButtonPanel.add(deleteButton); 
         closeButtonPanel.add(closeButton);
+
 
         add(infoPanel, BorderLayout.CENTER);
         add(closeButtonPanel, BorderLayout.SOUTH);
+        
+        
 
         closeButton.addActionListener(new ActionListener() {
             @Override
@@ -117,4 +150,5 @@ public class ViewPostForm extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
+    
 }
