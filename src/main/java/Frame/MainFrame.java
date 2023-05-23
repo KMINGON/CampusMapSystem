@@ -11,6 +11,7 @@ package Frame;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
@@ -28,7 +29,7 @@ class MainFrame extends JFrame implements MouseListener {
     JLabel imageLabel;
     ImageIcon markerIcon;
     JLabel markerLabel;
-    JButton boardButton;
+    JButton loginButton;
 
     public MainFrame() {
         super("메인 화면");
@@ -36,13 +37,12 @@ class MainFrame extends JFrame implements MouseListener {
         // Set the layout to null
         setLayout(null);
 
-        // Set the size of the frame to 1280x720
         setSize(1300, 750);
 
         // 배경색
         getContentPane().setBackground(new Color(255, 255, 255));
 
-        // Create and add the title label to the top
+        // 화면 상단 라벨
         titleLabel = new JLabel("메인 화면");
         titleLabel.setFont(new Font("맑은 고딕", Font.BOLD, 35));
         titleLabel.setForeground(Color.WHITE);
@@ -52,45 +52,55 @@ class MainFrame extends JFrame implements MouseListener {
         titleLabel.setBackground(new Color(103, 78, 167));
         add(titleLabel);
 
-        // Create and add the search field
+        
         searchField = new JTextField();
         searchField.setBounds(390, 60, 500, 30);
         add(searchField);
 
-        // Create and add the search button
+        
         searchButton = new JButton("검색");
         searchButton.setBounds(910, 60, 100, 30);
         searchButton.setBackground(new Color(125, 105, 167)); // 약간 연한 보라색
         searchButton.setForeground(Color.WHITE);
         add(searchButton);
 
-        // Create board button
-        boardButton = new JButton("게시판");
-        boardButton.setBounds(1170, 60, 100, 30);
-        boardButton.setBackground(new Color(174, 155, 197)); // 연한 보라색
-        boardButton.setForeground(Color.WHITE);
-        add(boardButton);
+        // 로그인 버튼
+        loginButton = new JButton("로그인");
+        loginButton.setBounds(1170, 60, 100, 30);
+        loginButton.setBackground(new Color(174, 155, 197)); // 연한 보라색
+        loginButton.setForeground(Color.WHITE);
+        add(loginButton);
+        
+        // 로그인 화면으로 이동
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Open the login frame here
+                dispose(); // Close the main frame
+                new LoginFrame();
+            }
+        });
 
-        // Create the building info table
+        // 예시 테이블 생성 (건물 정보)
         String[] buildingInfoColumns = {"건물명", "위치"};
         Object[][] buildingInfoData = {{"대학본관", "위치1"}, {"법정관", "위치2"}};
         DefaultTableModel buildingInfoModel = new DefaultTableModel(buildingInfoData, buildingInfoColumns);
         buildingInfoTable = new JTable(buildingInfoModel);
         buildingInfoTable.addMouseListener(this);
 
-        // Create and add the popular posts scroll pane
+        // 인기글 게시판 생성(스크롤 기능)
         popularPostsScrollPane = new JScrollPane(popularPostsTable);
         popularPostsScrollPane.setBounds(1020, 100, 250, 300);
         popularPostsScrollPane.setBorder(BorderFactory.createTitledBorder("인기글 게시판"));
         add(popularPostsScrollPane);
 
-        // Create and add the building info scroll pane
+        // 건물 정보 목록(스크롤 기능)
         buildingInfoScrollPane = new JScrollPane(buildingInfoTable);
         buildingInfoScrollPane.setBounds(1020, 400, 250, 300);
         buildingInfoScrollPane.setBorder(BorderFactory.createTitledBorder("건물 정보"));
         add(buildingInfoScrollPane);
 
-        // Create and add the image label
+        // 캠퍼스 맵 이미지 추가
         imageLabel = new JLabel();
         imageLabel.setBounds(10, 100, 1000, 600);
         imageLabel.addMouseListener(this);
@@ -106,7 +116,7 @@ class MainFrame extends JFrame implements MouseListener {
         }
         add(imageLabel);
 
-        // Create marker icon
+        // 마커 아이콘 추가
         try {
             URL markerUrl = new URL("https://maps.google.com/mapfiles/kml/shapes/placemark_circle_highlight.png");
             markerIcon = new ImageIcon(markerUrl);
@@ -117,6 +127,7 @@ class MainFrame extends JFrame implements MouseListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
+    
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -124,12 +135,12 @@ class MainFrame extends JFrame implements MouseListener {
             int column = buildingInfoTable.getColumnModel().getColumnIndexAtX(e.getX());
             int row = e.getY() / buildingInfoTable.getRowHeight();
 
-            // Check if the clicked area is within the table bounds
+            
             if (row < buildingInfoTable.getRowCount() && row >= 0 && column < buildingInfoTable.getColumnCount() && column >= 0) {
-                // Get the value of the clicked cell
+               
                 Object cellValue = buildingInfoTable.getValueAt(row, column);
 
-                // Perform an action based on the clicked cell value
+
                 if (cellValue != null && cellValue.equals("대학본관")) {
                     // Open Building1Frame
                     SwingUtilities.invokeLater(() -> {
@@ -158,6 +169,7 @@ class MainFrame extends JFrame implements MouseListener {
             }
         }
     }
+    
 
     @Override
     public void mousePressed(MouseEvent e) {}
@@ -171,10 +183,3 @@ class MainFrame extends JFrame implements MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {}
 }
-
-
-
-    
-
-
-
