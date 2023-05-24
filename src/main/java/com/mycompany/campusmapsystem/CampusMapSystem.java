@@ -5,6 +5,7 @@
 
 package com.mycompany.campusmapsystem;
 
+import java.util.List;
 import login.*;
 import model.*;
 
@@ -15,6 +16,10 @@ import model.*;
 public class CampusMapSystem {
 
     public static void main(String[] args) {
-        
+        DAO boardDAO = new BoardDAO(new ConnectOrcleDb());
+        List<Board> list = boardDAO.findAll();
+        for(Board board : list){
+            System.out.println(board);
+        }
     }
 }

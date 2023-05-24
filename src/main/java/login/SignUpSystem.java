@@ -13,9 +13,9 @@ import model.*;
 public class SignUpSystem {
 
     User user;
-    UserDAO userDao;
+    DAO userDao;
 
-    public SignUpSystem(UserDAO userDao) {
+    public SignUpSystem(DAO userDao) {
         this.userDao = userDao;
     }
 

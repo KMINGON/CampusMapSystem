@@ -10,7 +10,7 @@ import java.sql.*;
  *
  * @author LG
  */
-public class ConnectMysqlDb {
+public class ConnectMysqlDb implements ConnectDB{
 
     private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     String jdbcDriver = "jdbc:mysql://49.50.174.5:3306/TestDB?serverTimezone=UTC";
@@ -29,6 +29,7 @@ public class ConnectMysqlDb {
         }
     }
 
+    @Override
     public Connection getConn() {
         return conn;
     }

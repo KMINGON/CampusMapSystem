@@ -12,16 +12,16 @@ import model.*;
  */
 public class SignInSystem {
 
-    UserDAO userDao;
+    DAO userDao;
     LoginStatus loginStatus;
 
-    public SignInSystem(UserDAO userDao, LoginStatus loginStatus) {
+    public SignInSystem(DAO userDao, LoginStatus loginStatus) {
         this.userDao = userDao;
         this.loginStatus = loginStatus;
     }
 
     public boolean signIn(User user) {
-        User u = userDao.findById(user.getId());
+        User u = (User)userDao.findById(user.getId());
         if (u != null && u.getPw().equals(user.getPw())) {
             return true;
         }

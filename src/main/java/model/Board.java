@@ -11,11 +11,12 @@ import java.sql.*;
  * @author LG
  */
 public class Board {
+
     private String userId;
     private String userName;
     private String bdTitle;
     private String bdContent;
-    private Timestamp bdDate; 
+    private Timestamp bdDate;
     private int bdViewCnt;
     private int bdBuildNum;
     private int bdNo;
@@ -95,10 +96,16 @@ public class Board {
         this.bdNo = bdNo;
     }
 
-    
+    @Override
+    public String toString() {
+        return "userId: " + userId + " / "
+                + "userName: " + userName + " / "
+                + "bdTitle: " + bdTitle + " / "
+                + "bdContent: " + bdContent + " / "
+                + "bdDate: " + bdDate + " / "
+                + "bdViewCnt: " + bdViewCnt + " / "
+                + "bdBuildNum: " + bdBuildNum + " / "
+                + "bdNo: " + bdNo;
+    }
 
-    
-    
-    
-    
 }

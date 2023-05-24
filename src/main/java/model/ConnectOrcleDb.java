@@ -10,7 +10,7 @@ import java.sql.*;
  *
  * @author LG
  */
-public class ConnectOrcleDb {    //DB 관리
+public class ConnectOrcleDb implements ConnectDB {    //DB 관리
 
     private static final String JDBC_DRIVER = "oracle.jdbc.driver.OracleDriver";
     private static final String DB_URL = "jdbc:oracle:thin:@sedb.deu.ac.kr:1521/orcl";
@@ -29,6 +29,7 @@ public class ConnectOrcleDb {    //DB 관리
         }
     }
 
+    @Override
     public Connection getConn() {
         return conn;
     }
