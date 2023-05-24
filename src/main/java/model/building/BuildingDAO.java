@@ -17,7 +17,7 @@ import model.connect.ConnectDB;
  *
  * @author LG
  */
-public class BuildingDAO extends DAOAbstract<Building, Integer>{
+public class BuildingDAO extends DAOAbstract<Building, Integer> {
 
     public BuildingDAO(ConnectDB connDB) {
         super(connDB);
@@ -36,6 +36,7 @@ public class BuildingDAO extends DAOAbstract<Building, Integer>{
     @Override
     public Building findById(Integer buNo) {
         Building building = null;
+        ArrayList<BuInfo> buInfos = new ArrayList();
         try {
             String format = "SELECT * FROM %s WHERE buNo = %s";
             String query = String.format(format, "BUILDING", buNo);
@@ -52,10 +53,19 @@ public class BuildingDAO extends DAOAbstract<Building, Integer>{
             }
             query = String.format(format, "BUINFO", buNo);
             rs = stat.executeQuery(query);
+            while (rs.next()) {
+                BuInfo buInfo = new BuInfo(
+                        rs.getInt("buNo"),
+                        rs.getString("biFloor"),
+                        rs.getString("biName")
+                );
+                buInfos.add(buInfo);
+            }
+            building.setBuInfo(buInfos);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return 
+        return building;
     }
 
     @Override
@@ -72,5 +82,5 @@ public class BuildingDAO extends DAOAbstract<Building, Integer>{
     public void deleteById(Integer buNo) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
 }
