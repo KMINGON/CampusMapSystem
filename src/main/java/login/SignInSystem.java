@@ -4,6 +4,7 @@
  */
 package login;
 
+import model.userData.User;
 import model.*;
 
 /**

@@ -2,28 +2,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package model;
+package model.boardData;
 
+import model.boardData.Board;
 import java.sql.*;
 import java.util.*;
+import model.connect.ConnectDB;
+import model.DAOAbstract;
 
 /**
  *
  * @author LG
  */
-public class BoardDAO implements DAO<Board, Integer> {
-
-    private Connection conn;
-    Statement stat = null;
-    ResultSet rs = null;
+public class BoardDAO extends DAOAbstract<Board, Integer> {
 
     public BoardDAO(ConnectDB connDB) {
-        conn = connDB.getConn();
-        try {
-            stat = conn.createStatement();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
+        super(connDB);
     }
     
     @Override

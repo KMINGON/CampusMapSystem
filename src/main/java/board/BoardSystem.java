@@ -4,6 +4,8 @@
  */
 package board;
 
+import model.boardData.BoardDAO;
+import model.boardData.Board;
 import model.*;
 
 /**
