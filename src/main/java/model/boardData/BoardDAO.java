@@ -4,10 +4,8 @@
  */
 package model.boardData;
 
-import model.boardData.Board;
 import java.sql.*;
 import java.util.*;
-import model.connect.ConnectDB;
 import model.DAOAbstract;
 
 /**
@@ -15,23 +13,18 @@ import model.DAOAbstract;
  * @author LG
  */
 public class BoardDAO extends DAOAbstract<Board, Integer> {
-
-    public BoardDAO(ConnectDB connDB) {
-        super(connDB);
-    }
     
     @Override
     public void insert(Board board) {
         try {
-            String format = "INSERT INTO %s(bdNo, userId, userName, bdTitle, bdContent, bdViewCnt, bdBuildNum) VALUES(%s, '%s', '%s', '%s', '%s', %s, %s)";
+            String format = "INSERT INTO %s(userId, userName, bdTitle, bdContent, bdViewCnt, bdBuildNum) VALUES(%s, '%s', '%s', '%s', '%s', %s, %s)";
             String query = String.format(format,
                     "BOARD",
-                    board.getBdNo(), board.getUserId(),
-                    board.getUserName(), board.getBdTitle(),
-                    board.getBdContent(),board.getBdViewCnt(), board.getBdBuildNum());
+                    board.getUserId(),board.getUserName(), 
+                    board.getBdTitle(),board.getBdContent(),
+                    board.getBdViewCnt(),board.getBdBuildNum());
             stat.executeUpdate(query);
         } catch (SQLException ex) {
-            ex.printStackTrace();
         }
     }
 
@@ -55,7 +48,6 @@ public class BoardDAO extends DAOAbstract<Board, Integer> {
                 ));
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
         }
         return boards;
     }
@@ -80,7 +72,6 @@ public class BoardDAO extends DAOAbstract<Board, Integer> {
                 );
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
         }
         return board;
     }
@@ -100,7 +91,6 @@ public class BoardDAO extends DAOAbstract<Board, Integer> {
                 );
                 stat.executeUpdate(query);
             } catch (SQLException ex) {
-                ex.printStackTrace();
             }
         }
     }
@@ -117,7 +107,6 @@ public class BoardDAO extends DAOAbstract<Board, Integer> {
             String query = String.format(format, "BOARD", id);
             stat.executeUpdate(query);
         } catch (SQLException ex) {
-            ex.printStackTrace();
         }
     }
 

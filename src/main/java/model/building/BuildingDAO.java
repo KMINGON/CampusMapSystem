@@ -4,24 +4,18 @@
  */
 package model.building;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import model.DAOAbstract;
-import model.connect.ConnectDB;
 
 /**
  *
  * @author LG
  */
 public class BuildingDAO extends DAOAbstract<Building, Integer> {
-
-    public BuildingDAO(ConnectDB connDB) {
-        super(connDB);
-    }
 
     @Override
     public void insert(Building building) {
@@ -30,7 +24,42 @@ public class BuildingDAO extends DAOAbstract<Building, Integer> {
 
     @Override
     public List<Building> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<Building> buildings = new ArrayList();
+        try {
+            String format = "SELECT * FROM %s";
+            String query = String.format(format, "BUILDING");
+            rs = stat.executeQuery(query);
+            while (rs.next()) {
+                ArrayList<BuInfo> buInfos = new ArrayList();
+                Building building = null;
+                building = new Building(
+                        rs.getInt("buNo"),
+                        rs.getString("buName"),
+                        rs.getString("buExplain"),
+                        rs.getInt("buLocateX"),
+                        rs.getString("buLocateY"),
+                        rs.getString("buImage"),
+                        rs.getInt("buFavo")
+                );
+
+                String biFormat = "SELECT * FROM %s WHERE buNo = %d";
+                query = String.format(biFormat, "BUINFO", building.getBuNo());
+                Statement biStat = conn.createStatement();
+                ResultSet rsTemp = biStat.executeQuery(query);
+                while (rsTemp.next()) {
+                    BuInfo buInfo = new BuInfo(
+                            rsTemp.getInt("buNo"),
+                            rsTemp.getString("biFloor"),
+                            rsTemp.getString("biName")
+                    );
+                    buInfos.add(buInfo);
+                }
+                building.setBuInfos(buInfos);
+                buildings.add(building);
+            }
+        } catch (SQLException ex) {
+        }
+        return buildings;
     }
 
     @Override
@@ -38,32 +67,34 @@ public class BuildingDAO extends DAOAbstract<Building, Integer> {
         Building building = null;
         ArrayList<BuInfo> buInfos = new ArrayList();
         try {
-            String format = "SELECT * FROM %s WHERE buNo = %s";
-            String query = String.format(format, "BUILDING", buNo);
+            String format = "SELECT * FROM %s";
+            String query = String.format(format, "BUILDING");
             rs = stat.executeQuery(query);
             while (rs.next()) {
                 building = new Building(
                         rs.getInt("buNo"),
-                        rs.getString("nuName"),
+                        rs.getString("buName"),
                         rs.getString("buExplain"),
-                        rs.getString("buLocate"),
+                        rs.getInt("buLocateX"),
+                        rs.getString("buLocateY"),
                         rs.getString("buImage"),
                         rs.getInt("buFavo")
                 );
             }
-            query = String.format(format, "BUINFO", buNo);
-            rs = stat.executeQuery(query);
-            while (rs.next()) {
+            String biFormat = "SELECT * FROM %s WHERE buNo = %d";
+            query = String.format(biFormat, "BUINFO", building.getBuNo());
+            Statement biStat = conn.createStatement();
+            ResultSet rsTemp = biStat.executeQuery(query);
+            while (rsTemp.next()) {
                 BuInfo buInfo = new BuInfo(
-                        rs.getInt("buNo"),
-                        rs.getString("biFloor"),
-                        rs.getString("biName")
+                        rsTemp.getInt("buNo"),
+                        rsTemp.getString("biFloor"),
+                        rsTemp.getString("biName")
                 );
                 buInfos.add(buInfo);
             }
-            building.setBuInfo(buInfos);
+            building.setBuInfos(buInfos);
         } catch (SQLException ex) {
-            ex.printStackTrace();
         }
         return building;
     }

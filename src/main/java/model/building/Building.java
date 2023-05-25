@@ -15,27 +15,32 @@ public class Building {
     int buNo;
     String buName;
     String buExplain;
-    String buLocate;
+    int buLocateX;
+    String buLocateY;
     String buImage;
     int buFavo;
     ArrayList<BuInfo> buInfos;
 
-    public Building(int buNo, String buName, String buExplain, String buLocate, String buImage, int buFavo) {
+    public Building(int buNo, String buName, String buExplain, int buLocateX, String buLocateY, String buImage, int buFavo) {
         this.buNo = buNo;
         this.buName = buName;
         this.buExplain = buExplain;
-        this.buLocate = buLocate;
+        this.buLocateX = buLocateX;
+        this.buLocateY = buLocateY;
         this.buImage = buImage;
         this.buFavo = buFavo;
-        this.buInfos = new ArrayList();
+        buInfos = new ArrayList();
     }
+
+   
 
     @Override
     public String toString() {
         return "buNo: " + buNo + " / "
                 + "buName: " + buName + " / "
                 + "buExplain: " + buExplain + " / "
-                + "buLocate: " + buLocate + " / "
+                + "buLocateX: " + buLocateX + " / "
+                + "buLocateY: " + buLocateY + " / "
                 + "buImage: " + buImage + " / "
                 + "buFavo: " + buFavo + " / "
                 + "buInfo: " + buInfoListToString();
@@ -76,13 +81,23 @@ public class Building {
         this.buExplain = buExplain;
     }
 
-    public String getBuLocate() {
-        return buLocate;
+    public int getBuLocateX() {
+        return buLocateX;
     }
 
-    public void setBuLocate(String buLocate) {
-        this.buLocate = buLocate;
+    public void setBuLocateX(int buLocateX) {
+        this.buLocateX = buLocateX;
     }
+
+    public String getBuLocateY() {
+        return buLocateY;
+    }
+
+    public void setBuLocateY(String buLocateY) {
+        this.buLocateY = buLocateY;
+    }
+
+   
 
     public String getBuImage() {
         return buImage;
@@ -100,11 +115,11 @@ public class Building {
         this.buFavo = buFavo;
     }
 
-    public ArrayList<BuInfo> getBuInfo() {
+    public ArrayList<BuInfo> getBuInfos() {
         return buInfos;
     }
 
-    public void setBuInfo(ArrayList<BuInfo> buInfos) {
+    public void setBuInfos(ArrayList<BuInfo> buInfos) {
         this.buInfos = buInfos;
     }
 

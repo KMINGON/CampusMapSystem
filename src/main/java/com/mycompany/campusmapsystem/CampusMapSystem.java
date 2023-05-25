@@ -5,9 +5,7 @@
 
 package com.mycompany.campusmapsystem;
 
-import java.util.List;
-import login.*;
-import model.*;
+import gui.*;
 
 /**
  *
@@ -16,6 +14,6 @@ import model.*;
 public class CampusMapSystem {
 
     public static void main(String[] args) {
-        
+        new MainForm();
     }
 }

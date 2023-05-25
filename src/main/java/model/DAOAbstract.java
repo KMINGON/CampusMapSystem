@@ -8,23 +8,25 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import model.connect.ConnectDB;
+import model.connect.ConnectOrcleDb;
+import model.connect.ConnectionPool;
 
 /**
  *
  * @author LG
+ * @param <T>
+ * @param <ID>
  */
 public abstract class DAOAbstract<T, ID> implements DAO<T, ID> {
     protected Connection conn;
     protected Statement stat = null;
     protected ResultSet rs = null;
 
-    public DAOAbstract(ConnectDB connDB) {
-        conn = connDB.getConn();
+    public DAOAbstract() {
+        conn = ConnectionPool.getInstance(new ConnectOrcleDb()).getConnection();
         try {
             stat = conn.createStatement();
         } catch (SQLException ex) {
-            ex.printStackTrace();
         }
     }
 }

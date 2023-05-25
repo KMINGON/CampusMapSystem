@@ -9,6 +9,8 @@ import java.util.List;
 /**
  *
  * @author LG
+ * @param <T>
+ * @param <ID>
  */
 public abstract class DAODecorator<T, ID> implements DAO<T, ID> {
 

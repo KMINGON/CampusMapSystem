@@ -32,6 +32,19 @@ public class Board {
         this.bdNo = bdNo;
     }
 
+    public Board(BoardBuilder builder) {
+        this.userId = builder.getUserId();
+        this.userName = builder.getUserName();
+        this.bdTitle = builder.getBdTitle();
+        this.bdContent = builder.getBdContent();
+        this.bdDate = builder.getBdDate();
+        this.bdViewCnt = builder.getBdViewCnt();
+        this.bdBuildNum = builder.getBdBuildNum();
+        this.bdNo = builder.getBdNo();
+    }
+    
+    
+
     public int getBdBuildNum() {
         return bdBuildNum;
     }

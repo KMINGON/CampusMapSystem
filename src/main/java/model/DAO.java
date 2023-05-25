@@ -4,15 +4,13 @@
  */
 package model;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 
 /**
  *
  * @author LG
+ * @param <T>
+ * @param <ID>
  */
 public interface DAO<T, ID>{
     public abstract void insert(T entity);

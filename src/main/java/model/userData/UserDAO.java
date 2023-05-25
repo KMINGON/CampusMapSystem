@@ -4,23 +4,15 @@
  */
 package model.userData;
 
-import model.userData.User;
 import java.sql.*;
 import java.util.*;
-import model.connect.ConnectDB;
-import model.DAO;
 import model.DAOAbstract;
-import model.boardData.Board;
 
 /**
  *
  * @author LG
  */
 public class UserDAO extends DAOAbstract<User, String> {
-
-    public UserDAO(ConnectDB connDB) {
-        super(connDB);
-    }
 
     @Override
     public void insert(User user) {
@@ -29,7 +21,6 @@ public class UserDAO extends DAOAbstract<User, String> {
             String query = String.format(format, "MEMBER", user.getId(), user.getPw(), user.getName());
             stat.executeUpdate(query);
         } catch (SQLException ex) {
-            ex.printStackTrace();
         }
     }
 
@@ -48,7 +39,6 @@ public class UserDAO extends DAOAbstract<User, String> {
                 ));
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
         }
         return users;
     }
@@ -68,7 +58,6 @@ public class UserDAO extends DAOAbstract<User, String> {
                 );
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
         }
         return user;
     }
@@ -82,7 +71,6 @@ public class UserDAO extends DAOAbstract<User, String> {
                 String query = String.format(format, "MEMBER", user.getPw(), user.getName(), user.getId());
                 stat.executeUpdate(query);
             } catch (SQLException ex) {
-                ex.printStackTrace();
             }
         }
     }
@@ -99,7 +87,6 @@ public class UserDAO extends DAOAbstract<User, String> {
             String query = String.format(format, "MEMBER", id);
             stat.executeUpdate(query);
         } catch (SQLException ex) {
-            ex.printStackTrace();
         }
     }
 }
