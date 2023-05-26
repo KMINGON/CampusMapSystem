@@ -6,6 +6,7 @@
 package com.mycompany.campusmapsystem;
 
 import gui.*;
+import model.connect.ConnectMariaDB;
 
 /**
  *

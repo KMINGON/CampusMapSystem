@@ -12,7 +12,7 @@ import java.util.List;
  * @param <T>
  * @param <ID>
  */
-public abstract class DAODecorator<T, ID> implements DAO<T, ID> {
+public abstract class DAODecorator<T, ID> extends DAOAbstract<T, ID> {
 
     DAO<T, ID> dao;
 

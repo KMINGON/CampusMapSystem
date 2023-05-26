@@ -4,10 +4,12 @@
  */
 package login;
 
+import model.userData.User;
+
 /**
  *
  * @author LG
  */
 public interface Observer {
-    public void update(int status);
+    public void update(User user);
 }

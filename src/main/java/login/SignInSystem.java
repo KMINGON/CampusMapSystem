@@ -6,6 +6,7 @@ package login;
 
 import model.userData.User;
 import model.*;
+import model.userData.UserDAO;
 
 /**
  *
@@ -14,19 +15,20 @@ import model.*;
 public class SignInSystem {
 
     DAO userDao;
-    LoginStatus loginStatus;
+    LoginData loginData;
 
-    public SignInSystem(DAO userDao, LoginStatus loginStatus) {
-        this.userDao = userDao;
-        this.loginStatus = loginStatus;
+    public SignInSystem() {
+        this.userDao = new UserDAO();
+        this.loginData = LoginDataPool.getInstance().getLoginData();
     }
 
-    public boolean signIn(User user) {
+    public User signIn(User user) {
         User u = (User)userDao.findById(user.getId());
         if (u != null && u.getPw().equals(user.getPw())) {
-            return true;
+            loginData.setStatus(u);
+            return u;
         }
-        return false;
+        return null;
     }
 
 }

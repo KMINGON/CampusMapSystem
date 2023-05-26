@@ -4,17 +4,19 @@
  */
 package login;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import model.userData.User;
 
 /**
  *
  * @author LG
  */
-public class LoginStatus implements Subject{
+public class LoginData implements Subject{
     private List<Observer> observers;
-    private int status;
+    private User user;
 
-    public LoginStatus() {
+    public LoginData() {
         observers = new ArrayList<Observer>();
     }
     
@@ -31,15 +33,12 @@ public class LoginStatus implements Subject{
     @Override
     public void notifyObserver() {
         for(Observer observer : observers){
-            observer.update(status);
+            observer.update(user);
         }
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setStatus(User user) {
+        this.user = user;
         notifyObserver();
     }
-    
-    
-    
 }

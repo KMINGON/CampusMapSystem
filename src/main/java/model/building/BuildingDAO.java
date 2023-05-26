@@ -37,7 +37,7 @@ public class BuildingDAO extends DAOAbstract<Building, Integer> {
                         rs.getString("buName"),
                         rs.getString("buExplain"),
                         rs.getInt("buLocateX"),
-                        rs.getString("buLocateY"),
+                        rs.getInt("buLocateY"),
                         rs.getString("buImage"),
                         rs.getInt("buFavo")
                 );
@@ -67,8 +67,8 @@ public class BuildingDAO extends DAOAbstract<Building, Integer> {
         Building building = null;
         ArrayList<BuInfo> buInfos = new ArrayList();
         try {
-            String format = "SELECT * FROM %s";
-            String query = String.format(format, "BUILDING");
+            String format = "SELECT * FROM %s WHERE buNo = %d";
+            String query = String.format(format, "BUILDING", buNo);
             rs = stat.executeQuery(query);
             while (rs.next()) {
                 building = new Building(
@@ -76,7 +76,7 @@ public class BuildingDAO extends DAOAbstract<Building, Integer> {
                         rs.getString("buName"),
                         rs.getString("buExplain"),
                         rs.getInt("buLocateX"),
-                        rs.getString("buLocateY"),
+                        rs.getInt("buLocateY"),
                         rs.getString("buImage"),
                         rs.getInt("buFavo")
                 );

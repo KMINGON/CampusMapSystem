@@ -16,12 +16,12 @@ public class Building {
     String buName;
     String buExplain;
     int buLocateX;
-    String buLocateY;
+    int buLocateY;
     String buImage;
     int buFavo;
     ArrayList<BuInfo> buInfos;
 
-    public Building(int buNo, String buName, String buExplain, int buLocateX, String buLocateY, String buImage, int buFavo) {
+    public Building(int buNo, String buName, String buExplain, int buLocateX, int buLocateY, String buImage, int buFavo) {
         this.buNo = buNo;
         this.buName = buName;
         this.buExplain = buExplain;
@@ -89,11 +89,11 @@ public class Building {
         this.buLocateX = buLocateX;
     }
 
-    public String getBuLocateY() {
+    public int getBuLocateY() {
         return buLocateY;
     }
 
-    public void setBuLocateY(String buLocateY) {
+    public void setBuLocateY(int buLocateY) {
         this.buLocateY = buLocateY;
     }
 

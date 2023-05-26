@@ -8,7 +8,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import model.connect.ConnectOrcleDb;
+import model.connect.ConnectMariaDB;
 import model.connect.ConnectionPool;
 
 /**
@@ -23,7 +23,7 @@ public abstract class DAOAbstract<T, ID> implements DAO<T, ID> {
     protected ResultSet rs = null;
 
     public DAOAbstract() {
-        conn = ConnectionPool.getInstance(new ConnectOrcleDb()).getConnection();
+        conn = ConnectionPool.getInstance(new ConnectMariaDB()).getConnection();
         try {
             stat = conn.createStatement();
         } catch (SQLException ex) {
