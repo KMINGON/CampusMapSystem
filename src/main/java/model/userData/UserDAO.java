@@ -2,31 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package model;
+package model.userData;
 
 import java.sql.*;
 import java.util.*;
+import model.DAOAbstract;
 
 /**
  *
  * @author LG
  */
-public class UserDAOImpl implements UserDAO {
-
-    private Connection conn;
-    Statement stat = null;
-    ResultSet rs = null;
-
-    public UserDAOImpl() {
-        ConnectOrcleDb connDB = new ConnectOrcleDb();
-        conn = connDB.getConn();
-        try {
-            stat = conn.createStatement();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-
-    }
+public class UserDAO extends DAOAbstract<User, String> {
 
     @Override
     public void insert(User user) {
@@ -35,7 +21,6 @@ public class UserDAOImpl implements UserDAO {
             String query = String.format(format, "MEMBER", user.getId(), user.getPw(), user.getName());
             stat.executeUpdate(query);
         } catch (SQLException ex) {
-            ex.printStackTrace();
         }
     }
 
@@ -54,7 +39,6 @@ public class UserDAOImpl implements UserDAO {
                 ));
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
         }
         return users;
     }
@@ -74,7 +58,6 @@ public class UserDAOImpl implements UserDAO {
                 );
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
         }
         return user;
     }
@@ -88,7 +71,6 @@ public class UserDAOImpl implements UserDAO {
                 String query = String.format(format, "MEMBER", user.getPw(), user.getName(), user.getId());
                 stat.executeUpdate(query);
             } catch (SQLException ex) {
-                ex.printStackTrace();
             }
         }
     }
@@ -105,7 +87,6 @@ public class UserDAOImpl implements UserDAO {
             String query = String.format(format, "MEMBER", id);
             stat.executeUpdate(query);
         } catch (SQLException ex) {
-            ex.printStackTrace();
         }
     }
 }

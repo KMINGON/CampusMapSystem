@@ -4,26 +4,32 @@
  */
 package login;
 
+import model.DataPool;
+import model.userData.User;
 import model.*;
+import model.userData.UserDAO;
 
 /**
  *
  * @author LG
  */
 public class SignInSystem {
-    User user;
-    UserDAO userDao;
 
-    public SignInSystem(User user) {
-        this.user = user;
+    DAO userDao;
+    LoginData loginData;
+
+    public SignInSystem() {
+        this.userDao = new UserDAO();
+        this.loginData = DataPool.getInstance().getLoginData();
     }
-    
-    public boolean cheackInfo(){
-        userDao = new UserDAOImpl();
-        User u = userDao.findById(user.getId());
-        if (u != null && u.getPw().equals(user.getPw())){
-            return true;
+
+    public User signIn(User user) {
+        User u = (User)userDao.findById(user.getId());
+        if (u != null && u.getPw().equals(user.getPw())) {
+            loginData.setStatus(u);
+            return u;
         }
-        return false;
+        return null;
     }
+
 }

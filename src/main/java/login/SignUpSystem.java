@@ -4,32 +4,30 @@
  */
 package login;
 
+import model.userData.User;
 import model.*;
+import model.userData.UserDAO;
 
 /**
  *
  * @author LG
  */
 public class SignUpSystem {
+    DAO userDao;
 
-    User user;
-    UserDAO userDao;
-
-    public SignUpSystem(User user) {
-        this.user = user;
+    public SignUpSystem() {
+        this.userDao = new UserDAO();
     }
-
-    private boolean cheackInfo() {
-        userDao = new UserDAOImpl();
-        if (userDao.findById(user.getId()) == null) {
+    
+    public void registerUser(User user) {
+        userDao.insert(user);
+    }
+    
+    
+    public boolean cheackInfo(String id) {
+        if (userDao.findById(id) == null) {
             return true;
         }
         return false;
-    }
-
-    public void saveMemberInfo() {
-        if (cheackInfo()) {
-            userDao.insert(user);
-        }
     }
 }

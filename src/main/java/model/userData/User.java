@@ -2,13 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package model;
+package model.userData;
 
 /**
  *
  * @author LG
  */
 public class User {
+
     private String id;
     private String pw;
     private String name;
@@ -18,17 +19,20 @@ public class User {
         this.pw = pw;
         this.name = name;
     }
-    
+
     public User(String id, String pw) {
         this.id = id;
         this.pw = pw;
         this.name = null;
     }
+
     @Override
-    public String toString(){
-        return "User name : " + name + " > " + "id=" + id + ", pw=" + pw;
+    public String toString() {
+        return "id: " + id + " / "
+                + "pw: " + pw + " / "
+                + "name: " + name;
     }
-    
+
     public String getId() {
         return id;
     }
@@ -52,5 +56,5 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
-    
+
 }
