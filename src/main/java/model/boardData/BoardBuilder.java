@@ -28,6 +28,7 @@ public class BoardBuilder {
         this.userName = userName;
         this.bdTitle = bdTitle;
         this.bdContent = bdContent;
+        bdViewCnt = 0;
     }
 
     public BoardBuilder bdDate(Timestamp bdDate) {

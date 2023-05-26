@@ -2,27 +2,36 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package login;
+package model;
+
+import board.BoardData;
+import login.LoginData;
 
 /**
  *
  * @author LG
  */
-public class LoginDataPool {
-    private static LoginDataPool instance;
+public class DataPool {
+    private static DataPool instance;
     private LoginData loginData;
+    private BoardData boardData;
 
-    private LoginDataPool() {
+    private DataPool() {
         loginData = new LoginData();
+        boardData = new BoardData();
     }
 
-    public static LoginDataPool getInstance() {
+    public static DataPool getInstance() {
         if (instance == null) {
-            instance = new LoginDataPool();
+            instance = new DataPool();
         }
         return instance;
     }
 
+    public BoardData getBoardData() {
+        return boardData;
+    }
+    
     public LoginData getLoginData() {
         return loginData;
     }

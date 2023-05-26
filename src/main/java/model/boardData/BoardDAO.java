@@ -17,7 +17,7 @@ public class BoardDAO extends DAOAbstract<Board, Integer> {
     @Override
     public void insert(Board board) {
         try {
-            String format = "INSERT INTO %s(userId, userName, bdTitle, bdContent, bdViewCnt, bdBuildNum) VALUES(%s, '%s', '%s', '%s', '%s', %s, %s)";
+            String format = "INSERT INTO %s(userId, userName, bdTitle, bdContent, bdViewCnt, bdBuildNum) VALUES('%s', '%s', '%s', '%s', %d, %d)";
             String query = String.format(format,
                     "BOARD",
                     board.getUserId(),board.getUserName(), 
@@ -32,7 +32,7 @@ public class BoardDAO extends DAOAbstract<Board, Integer> {
     public List<Board> findAll() {
         ArrayList<Board> boards = new ArrayList();
         try {
-            String format = "SELECT * FROM %s";
+            String format = "SELECT * FROM %s ORDER BY bdNo DESC";
             String query = String.format(format, "BOARD");
             rs = stat.executeQuery(query);
             while (rs.next()) {
