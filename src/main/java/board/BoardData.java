@@ -15,6 +15,8 @@ import observer.Subject;
  *
  * @author LG
  */
+
+//게시물 리스트 데이터를 보관하고 업데이트 현황 서브젝트
 public class BoardData implements Subject {
     private List<Observer> observers;
     private List<Board> boards;

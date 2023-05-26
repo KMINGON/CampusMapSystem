@@ -36,6 +36,8 @@ public class ViewPostForm extends JFrame {
         getContentPane().setBackground(Color.WHITE);
         this.board = b;
         boardDao = new BoardDAO();
+        
+        
         titleLabel = new JLabel("게시물 조회");
         titleLabel.setFont(new Font("맑은 고딕", Font.BOLD, 35));
         titleLabel.setForeground(Color.WHITE);
@@ -44,36 +46,43 @@ public class ViewPostForm extends JFrame {
         titleLabel.setBackground(new Color(125, 105, 167));
         add(titleLabel, BorderLayout.NORTH);
 
+        //제목
         titleLabel = new JLabel("게시물 제목");
         titleLabel.setFont(font1);
         titleLabel.setHorizontalAlignment(SwingConstants.LEFT);
-
+        
+        //내용
         contentArea = new JTextArea("게시물 내용", 10, 50); // 게시물 내용 출력 칸 늘리기
         contentArea.setFont(font2);
         contentArea.setEditable(false);
         contentArea.setLineWrap(true);
         JScrollPane scrollPane = new JScrollPane(contentArea);
-
+        
+        //조회수
         viewCountNameLabel = new JLabel(" 조회수: ");
         viewCountNameLabel.setFont(font1);
         viewCountNumberLabel = new JLabel("0");
         viewCountNumberLabel.setFont(font2);
-
+        
+        //작성자
         authorNameLabel = new JLabel("작성자: ");
         authorNameLabel.setFont(font1);
         authorTextLabel = new JLabel("홍길동");
         authorTextLabel.setFont(font2);
 
+        //아이디
         userIdNameLabel = new JLabel("유저아이디: ");
         userIdNameLabel.setFont(font1);
         userIdTextLabel = new JLabel("userId");
         userIdTextLabel.setFont(font2);
 
+        //작성일
         dateNameLabel = new JLabel("작성일: ");
         dateNameLabel.setFont(font1);
         dateTextLabel = new JLabel("2022-10-01");
         dateTextLabel.setFont(font2);
 
+        //게시글 수정 저장버튼 및 닫기버튼
         closeButton = new JButton("닫기");
         closeButton.setFont(font1);
         closeButton.setBackground(new Color(125, 105, 167));
@@ -94,6 +103,7 @@ public class ViewPostForm extends JFrame {
             }
         });
 
+        //수정 버튼
         editButton = new JButton("수정");
         editButton.setFont(font1);
         editButton.setBackground(new Color(125, 105, 167));
@@ -108,7 +118,8 @@ public class ViewPostForm extends JFrame {
                 closeButton.setText("저장");
             }
         });
-
+        
+        //삭제
         deleteButton = new JButton("삭제");
         deleteButton.setFont(font1);
         deleteButton.setBackground(new Color(125, 105, 167));
@@ -175,6 +186,7 @@ public class ViewPostForm extends JFrame {
         setVisible(true);
     }
 
+    //게시물 정보 출력
     private void initPost() {
         user = DataPool.getInstance().getLoginData().getUser();
         board.setBdViewCnt(board.getBdViewCnt() + 1);

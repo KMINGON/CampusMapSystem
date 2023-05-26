@@ -65,7 +65,7 @@ public class SignInForm extends JFrame {
         pwText.setBorder(BorderFactory.createTitledBorder("PW")); // Add title to the password field
         panel.add(pwText);
 
-        // Create and add the login button
+        //로그인
         loginButton = new JButton("로그인");
         loginButton.setFont(new Font("맑은 고딕", Font.PLAIN, 16)); // 맑은 고딕 폰트
         loginButton.setBounds(300, 45, 110, 40);
@@ -85,7 +85,7 @@ public class SignInForm extends JFrame {
         });
         panel.add(loginButton);
 
-        // Create and add the sign-up button
+        //회원가입
         signUpButton = new JButton("회원가입");
         signUpButton.setFont(new Font("맑은 고딕", Font.PLAIN, 16)); // 맑은 고딕 폰트
         signUpButton.setBounds(300, 95, 110, 40);

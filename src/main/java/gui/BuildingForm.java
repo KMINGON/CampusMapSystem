@@ -55,7 +55,7 @@ public class BuildingForm extends JFrame implements Observer {
         // Set the layout to null
         setLayout(null);
 
-        //로그인 옵저버 등록
+        //옵저버 등록
         DataPool.getInstance().getLoginData().registerObserver(this);
         DataPool.getInstance().getBoardData().registerObserver(this);
 
@@ -125,7 +125,7 @@ public class BuildingForm extends JFrame implements Observer {
         descriptionScrollPane.setBounds(100, 400, 600, 150);
         add(descriptionScrollPane);
 
-        //게시글
+        //게시글 조회
         String[] boardColums = {"작성자", "제목", "조회수", "작성일"};
         boardTableModel = new DefaultTableModel(null, boardColums);
         showBoard();
@@ -152,7 +152,8 @@ public class BuildingForm extends JFrame implements Observer {
         // Set the default close operation and make the frame visible
         setVisible(true);
     }
-
+    
+    //게시글 출력
     private void showBoard() {
         boards = (ArrayList) boardDao.findAll();
         boardTableModel.setNumRows(0);
@@ -168,6 +169,7 @@ public class BuildingForm extends JFrame implements Observer {
         }
     }
 
+    //건물 정보 출력
     private String setExpalain() {
         StringBuilder expalain = new StringBuilder();
         expalain.append(building.getBuExplain())
@@ -178,7 +180,8 @@ public class BuildingForm extends JFrame implements Observer {
         }
         return expalain.toString();
     }
-
+    
+    //옵저버
     @Override
     public void update() {
         this.user = DataPool.getInstance().getLoginData().getUser();

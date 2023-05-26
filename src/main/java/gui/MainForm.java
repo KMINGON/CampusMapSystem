@@ -81,7 +81,9 @@ public class MainForm extends JFrame implements Observer {
         titleLabel.setOpaque(true);
         titleLabel.setBackground(new Color(103, 78, 167));
         add(titleLabel);
-
+        
+        
+        //로그인 상태 표기
         userLabel = new JLabel("Guest Mode");
         userLabel.setFont(new Font("맑은 고딕", Font.BOLD, 17));
         userLabel.setBounds(1030, 60, 200, 30);
@@ -91,7 +93,6 @@ public class MainForm extends JFrame implements Observer {
         searchField = new JTextField();
         searchField.setBounds(280, 60, 500, 30);
         add(searchField);
-
         searchButton = new JButton("검색");
         searchButton.setBounds(800, 60, 100, 30);
         searchButton.setBackground(new Color(125, 105, 167)); // 약간 연한 보라색
@@ -206,6 +207,7 @@ public class MainForm extends JFrame implements Observer {
                 }
             }
         });
+        //건물 정보 조회
         buildingInfoTable.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
@@ -213,6 +215,7 @@ public class MainForm extends JFrame implements Observer {
                 }
             }
         });
+        
         // 인기글 게시판 생성(스크롤 기능)
         String[] popularPostsColumns = {"건물", "작성자", "제목"};
         popularPostsModel = new DefaultTableModel(null, popularPostsColumns);
@@ -223,6 +226,8 @@ public class MainForm extends JFrame implements Observer {
                 return false;
             }
         };
+        
+        //게시물 조회
         popularPostsTable.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
@@ -246,7 +251,8 @@ public class MainForm extends JFrame implements Observer {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
-
+    
+    //게시판 목록 출력
     private void showBoard() {
         boards = (ArrayList) boardDao.findAll();
         popularPostsModel.setNumRows(0);
@@ -255,6 +261,7 @@ public class MainForm extends JFrame implements Observer {
         }
     }
 
+    //건물 목록 출력
     public void showBuildingList() {
         buildings = buildingDao.findAll();
         for (Building building : buildings) {

@@ -33,8 +33,13 @@ public class CreatePostForm extends JFrame {
         setSize(610, 600);
         setLayout(null);
         getContentPane().setBackground(Color.WHITE);
+        
+        //게시판dao 생성
         boardDao = new BoardDAO();
+        
         jOptionPane = new JOptionPane();
+        
+        
         titleLabel = new JLabel("게시물 작성");
         titleLabel.setFont(new Font("맑은 고딕", Font.BOLD, 35));
         titleLabel.setForeground(Color.WHITE);
@@ -48,19 +53,24 @@ public class CreatePostForm extends JFrame {
         contentLabel.setFont(font1);
         contentLabel.setBounds(30, 60, 50, 20);
         add(contentLabel);
-
+        
+        //게시물 제목 입력
         titleField = new JTextField();
         titleField.setFont(font2);
         titleField.setBounds(80, 60, 440, 30);
         add(titleField);
-
+        
+        
+        //게시물 내용 입력
         contentArea = new JTextArea();
         contentArea.setFont(font2);
         contentArea.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         JScrollPane scrollPane = new JScrollPane(contentArea);
         scrollPane.setBounds(10, 110, 580, 390);
         add(scrollPane);
-
+        
+        
+        //게시물 등록
         submitButton = new JButton("등록");
         submitButton.setFont(font1);
         submitButton.setBackground(new Color(125, 105, 167));

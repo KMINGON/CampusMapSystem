@@ -108,6 +108,7 @@ public class SignUpForm extends JFrame {
         nameText.setBorder(BorderFactory.createTitledBorder("이름")); // Add title to the text field
         panel.add(nameText);
 
+        //가입
         registerButton = new JButton("등록");
         registerButton.setFont(new Font("맑은 고딕", Font.PLAIN, 16)); // 맑은 고딕 폰트
         registerButton.setBounds(290, 350, 120, 40);
@@ -122,9 +123,9 @@ public class SignUpForm extends JFrame {
                 String name = nameText.getText();
                 if (id.equals("") || pw.equals("") || name.equals("")) {
                     jOptionPane.showMessageDialog(null, "정보를 입력해 주세요!");
-                } else if (!pw.equals(pwCheckText.getText())){
+                } else if (!pw.equals(pwCheckText.getText())) {
                     jOptionPane.showMessageDialog(null, "비밀번호가 일치하지 않습니다!");
-                }else{
+                } else {
                     signUpSystem.registerUser(new User(id, pw, name));
                     jOptionPane.showMessageDialog(null, "가입 성공!");
                     dispose();
@@ -134,11 +135,17 @@ public class SignUpForm extends JFrame {
         panel.add(registerButton);
 
         // Create and add the back button
-        backButton = new JButton("뒤로 가기");
+        backButton = new JButton("닫기");
         backButton.setFont(new Font("맑은 고딕", Font.PLAIN, 16)); // 맑은 고딕 폰트
         backButton.setBounds(70, 350, 120, 40);
         backButton.setBackground(new Color(125, 105, 167)); // 약간 연한 보라색
         backButton.setForeground(Color.WHITE);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
         panel.add(backButton);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
