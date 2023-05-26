@@ -13,14 +13,17 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import model.building.Building;
 import model.building.BuildingDAO;
 import java.util.List;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import login.LoginDataPool;
-import login.Observer;
+import model.DataPool;
+import model.boardData.Board;
+import model.boardData.BoardDAO;
+import observer.Observer;
 import model.building.FindByNameBuildingDAO;
 import model.userData.User;
 
@@ -32,6 +35,7 @@ public class MainForm extends JFrame implements Observer {
     JButton searchButton;
     JButton viewBuilngButton;
     JTable popularPostsTable;
+    DefaultTableModel popularPostsModel;
     JTable buildingInfoTable;
     DefaultTableModel buildingInfoModel;
     JScrollPane popularPostsScrollPane;
@@ -45,6 +49,8 @@ public class MainForm extends JFrame implements Observer {
     List<Building> buildings;
     User user;
     Building building;
+    ArrayList<Board> boards;
+    BoardDAO boardDao;
 
     public MainForm() {
         super("메인 화면");
@@ -56,11 +62,12 @@ public class MainForm extends JFrame implements Observer {
 
         //건물 DAO 객체 생성
         buildingDao = new BuildingDAO();
-
+        boardDao = new BoardDAO();
         jOptionPane = new JOptionPane();
 
         //로그인 옵저버 등록
-        LoginDataPool.getInstance().getLoginData().registerObserver(this);
+        DataPool.getInstance().getLoginData().registerObserver(this);
+        DataPool.getInstance().getBoardData().registerObserver(this);
 
         // 배경색
         getContentPane().setBackground(new Color(255, 255, 255));
@@ -75,7 +82,7 @@ public class MainForm extends JFrame implements Observer {
         titleLabel.setBackground(new Color(103, 78, 167));
         add(titleLabel);
 
-        userLabel = new JLabel("Guest");
+        userLabel = new JLabel("Guest Mode");
         userLabel.setFont(new Font("맑은 고딕", Font.BOLD, 17));
         userLabel.setBounds(1030, 60, 200, 30);
         add(userLabel);
@@ -137,7 +144,7 @@ public class MainForm extends JFrame implements Observer {
                 if (user == null) {
                     new SignInForm();
                 } else {
-                    LoginDataPool.getInstance().getLoginData().setStatus(null);
+                    DataPool.getInstance().getLoginData().setStatus(null);
                 }
             }
         });
@@ -202,13 +209,29 @@ public class MainForm extends JFrame implements Observer {
         buildingInfoTable.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
-                    JTable target = (JTable) e.getSource();
-                    int row = target.getSelectedRow();
                     new BuildingForm(building, user);
                 }
             }
         });
         // 인기글 게시판 생성(스크롤 기능)
+        String[] popularPostsColumns = {"건물", "작성자", "제목"};
+        popularPostsModel = new DefaultTableModel(null, popularPostsColumns);
+        showBoard();
+        popularPostsTable = new JTable(popularPostsModel) {
+            public boolean isCellEditable(int row, int column) {
+                //all cells false
+                return false;
+            }
+        };
+        popularPostsTable.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    int row = popularPostsTable.getSelectedRow();
+                    new ViewPostForm(boards.get(row));
+                }
+            }
+        });
+
         popularPostsScrollPane = new JScrollPane(popularPostsTable);
         popularPostsScrollPane.setBounds(1020, 100, 250, 300);
         popularPostsScrollPane.setBorder(BorderFactory.createTitledBorder("최근 게시물"));
@@ -224,6 +247,14 @@ public class MainForm extends JFrame implements Observer {
         setVisible(true);
     }
 
+    private void showBoard() {
+        boards = (ArrayList) boardDao.findAll();
+        popularPostsModel.setNumRows(0);
+        for (Board board : boards) {
+            popularPostsModel.addRow(new Object[]{buildingDao.findById(board.getBdBuildNum()).getBuName(), board.getUserName(), board.getBdTitle()});
+        }
+    }
+
     public void showBuildingList() {
         buildings = buildingDao.findAll();
         for (Building building : buildings) {
@@ -232,8 +263,8 @@ public class MainForm extends JFrame implements Observer {
     }
 
     @Override
-    public void update(User user) {
-        this.user = user;
+    public void update() {
+        this.user = DataPool.getInstance().getLoginData().getUser();
         if (user != null) {
             loginButton.setText("로그아웃");
             loginButton.setBackground(new Color(170, 105, 167));
@@ -241,9 +272,9 @@ public class MainForm extends JFrame implements Observer {
         } else {
             loginButton.setText("로그인");
             loginButton.setBackground(new Color(125, 105, 167));
-            userLabel.setText("Guest");
-            jOptionPane.showMessageDialog(null, "로그아웃 되었습니다!");
+            userLabel.setText("Guest Mode");
         }
+        showBoard();
         //revalidate();
         //repaint();
     }

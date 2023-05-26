@@ -13,9 +13,15 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
-import login.Observer;
+import java.util.ArrayList;
+import observer.Observer;
+import model.DataPool;
+import model.boardData.Board;
+import model.boardData.BoardDAO;
 import model.building.BuInfo;
 import model.building.Building;
 import model.userData.User;
@@ -24,25 +30,36 @@ public class BuildingForm extends JFrame implements Observer {
 
     JLabel titleLabel;
     JLabel buildingImageLabel;
+    JLabel userLabel;
     JTextArea descriptionTextArea;
     JTable bulletinBoardTable;
     DefaultTableModel boardTableModel;
     JButton postButton;
+    JOptionPane jOptionPane;
     Building building;
+    ArrayList<Board> boards;
+    ArrayList<Integer> indexs;
+    BoardDAO boardDao;
     int buNo;
     User user;
 
-    public BuildingForm(Building building, User user) {
+    public BuildingForm(Building building, User u) {
         super(building.getBuName() + " 건물 정보");
         this.buNo = buNo;
         this.building = building;
-        this.user = user;
+        this.user = u;
+        boardDao = new BoardDAO();
         setSize(1150, 600);
 
         getContentPane().setBackground(new Color(255, 255, 255));
         // Set the layout to null
         setLayout(null);
 
+        //로그인 옵저버 등록
+        DataPool.getInstance().getLoginData().registerObserver(this);
+        DataPool.getInstance().getBoardData().registerObserver(this);
+
+        jOptionPane = new JOptionPane();
         // Create and add the title label to the top
         titleLabel = new JLabel(building.getBuName() + "(" + building.getBuNo() + ")");
         titleLabel.setFont(new Font("맑은 고딕", Font.BOLD, 25));
@@ -68,6 +85,16 @@ public class BuildingForm extends JFrame implements Observer {
         }
         add(buildingImageLabel);
 
+        //로그인 상태
+        if (user == null) {
+            userLabel = new JLabel("Guest Mode");
+        } else {
+            userLabel = new JLabel("User : " + user.getName());
+        }
+        userLabel.setFont(new Font("맑은 고딕", Font.BOLD, 17));
+        userLabel.setBounds(770, 520, 200, 30);
+        add(userLabel);
+
         //게시글 작성 버튼
         postButton = new JButton("게시글 작성");
         postButton.setBounds(970, 520, 150, 30);
@@ -76,7 +103,12 @@ public class BuildingForm extends JFrame implements Observer {
         postButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new CreatePostForm();
+                if (user != null) {
+                    new CreatePostForm(user, building.getBuNo());
+                } else {
+                    jOptionPane.showMessageDialog(null, "로그인을 해주세요!");
+                    new SignInForm();
+                }
             }
         });
 
@@ -94,10 +126,23 @@ public class BuildingForm extends JFrame implements Observer {
         add(descriptionScrollPane);
 
         //게시글
-        String[] boardColums = {"작성자", "제목", "작성일"};
+        String[] boardColums = {"작성자", "제목", "조회수", "작성일"};
         boardTableModel = new DefaultTableModel(null, boardColums);
-        bulletinBoardTable = new JTable(boardTableModel);
-        bulletinBoardTable.setEnabled(false);
+        showBoard();
+        bulletinBoardTable = new JTable(boardTableModel) {
+            public boolean isCellEditable(int row, int column) {
+                //all cells false
+                return false;
+            }
+        };
+        bulletinBoardTable.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    int row = bulletinBoardTable.getSelectedRow();
+                    new ViewPostForm(boards.get(indexs.get(row)));
+                }
+            }
+        });
         bulletinBoardTable.setBackground(Color.WHITE);
         JScrollPane bulletinBoardScrollPane = new JScrollPane(bulletinBoardTable);
         bulletinBoardScrollPane.setBounds(720, 70, 400, 440);
@@ -105,8 +150,22 @@ public class BuildingForm extends JFrame implements Observer {
         add(bulletinBoardScrollPane);
 
         // Set the default close operation and make the frame visible
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
+    }
+
+    private void showBoard() {
+        boards = (ArrayList) boardDao.findAll();
+        boardTableModel.setNumRows(0);
+        indexs = new ArrayList();
+        int index = 0;
+        for (Board board : boards) {
+            if (board.getBdBuildNum() == building.getBuNo()) {
+                indexs.add(index);
+                boardTableModel.addRow(new Object[]{board.getUserName(), board.getBdTitle(), board.getBdViewCnt(), board.getBdDate()});
+                
+            }
+            index++;
+        }
     }
 
     private String setExpalain() {
@@ -121,7 +180,14 @@ public class BuildingForm extends JFrame implements Observer {
     }
 
     @Override
-    public void update(User user) {
-        this.user = user;
+    public void update() {
+        this.user = DataPool.getInstance().getLoginData().getUser();
+        if (user != null) {
+            userLabel.setText("User : " + user.getName());
+        } else {
+            userLabel.setText("Guest Mode");
+        }
+
+        showBoard();
     }
 }

@@ -2,25 +2,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package login;
+package board;
 
-import observer.Subject;
-import observer.Observer;
 import java.util.ArrayList;
 import java.util.List;
-import model.userData.User;
+import model.boardData.Board;
+import model.boardData.BoardDAO;
+import observer.Observer;
+import observer.Subject;
 
 /**
  *
  * @author LG
  */
-public class LoginData implements Subject{
+public class BoardData implements Subject {
     private List<Observer> observers;
-    private User user;
+    private List<Board> boards;
 
-    public LoginData() {
+    public BoardData() {
         observers = new ArrayList<Observer>();
-        user = null;
+        boards = new BoardDAO().findAll();
     }
     
     @Override
@@ -40,12 +41,12 @@ public class LoginData implements Subject{
         }
     }
     
-    public User getUser(){
-        return this.user;
+    public List<Board> getUser(){
+        return this.boards;
     }
 
-    public void setStatus(User user) {
-        this.user = user;
+    public void setStatus(List<Board> boards) {
+        this.boards = boards;
         notifyObserver();
     }
 }

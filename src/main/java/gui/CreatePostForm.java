@@ -12,6 +12,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import model.DataPool;
+import model.boardData.BoardBuilder;
+import model.boardData.BoardDAO;
+import model.userData.User;
 
 public class CreatePostForm extends JFrame {
 
@@ -21,13 +25,16 @@ public class CreatePostForm extends JFrame {
     private JButton submitButton, cancelButton;
     private Font font1 = new Font("맑은 고딕", Font.BOLD, 16);
     private Font font2 = new Font("맑은 고딕", Font.PLAIN, 16);
+    JOptionPane jOptionPane;
+    BoardDAO boardDao;
 
-    public CreatePostForm() {
+    public CreatePostForm(User user, int buNo) {
         setTitle("게시물 작성");
         setSize(610, 600);
         setLayout(null);
         getContentPane().setBackground(Color.WHITE);
-
+        boardDao = new BoardDAO();
+        jOptionPane = new JOptionPane();
         titleLabel = new JLabel("게시물 작성");
         titleLabel.setFont(new Font("맑은 고딕", Font.BOLD, 35));
         titleLabel.setForeground(Color.WHITE);
@@ -60,6 +67,24 @@ public class CreatePostForm extends JFrame {
         submitButton.setForeground(Color.WHITE);
         submitButton.setFocusPainted(false);
         submitButton.setBounds(410, 520, 80, 30);
+        submitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (titleField.getText().equals("") && contentArea.getText().equals("")) {
+                    jOptionPane.showMessageDialog(null, "내용을 입력해 주세요!");
+                } else {
+                    boardDao.insert(new BoardBuilder(
+                            user.getId(),
+                            user.getName(),
+                            titleField.getText(),
+                            contentArea.getText()).
+                            bdBuildNum(buNo).build()
+                    );
+                    DataPool.getInstance().getBoardData().setStatus(boardDao.findAll());
+                    dispose();
+                }
+            }
+        });
         add(submitButton);
 
         cancelButton = new JButton("취소");

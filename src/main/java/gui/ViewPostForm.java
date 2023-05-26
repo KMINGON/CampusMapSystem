@@ -12,22 +12,30 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import model.DataPool;
+import model.boardData.Board;
+import model.boardData.BoardDAO;
+import model.userData.User;
 
 public class ViewPostForm extends JFrame {
 
-    private JLabel titleLabel, titleTextLabel, viewCountNameLabel, viewCountNumberLabel, authorNameLabel,
+    private JLabel titleLabel, viewCountNameLabel, viewCountNumberLabel, authorNameLabel,
             authorTextLabel, userIdNameLabel, userIdTextLabel, dateNameLabel, dateTextLabel;
     private JTextArea contentArea;
     private JButton closeButton, editButton, deleteButton;
     private Font font1 = new Font("맑은 고딕", Font.BOLD, 16);
     private Font font2 = new Font("맑은 고딕", Font.PLAIN, 16);
+    private Board board;
+    private BoardDAO boardDao;
+    private User user;
 
-    public ViewPostForm() {
+    public ViewPostForm(Board b) {
         setTitle("게시물 조회");
         setSize(610, 600);
         setLayout(new BorderLayout(0, 5));
         getContentPane().setBackground(Color.WHITE);
-
+        this.board = b;
+        boardDao = new BoardDAO();
         titleLabel = new JLabel("게시물 조회");
         titleLabel.setFont(new Font("맑은 고딕", Font.BOLD, 35));
         titleLabel.setForeground(Color.WHITE);
@@ -39,9 +47,6 @@ public class ViewPostForm extends JFrame {
         titleLabel = new JLabel("게시물 제목");
         titleLabel.setFont(font1);
         titleLabel.setHorizontalAlignment(SwingConstants.LEFT);
-        titleTextLabel = new JLabel("게시물 제목 예시");
-        titleTextLabel.setFont(font2);
-        titleTextLabel.setHorizontalAlignment(SwingConstants.LEFT);
 
         contentArea = new JTextArea("게시물 내용", 10, 50); // 게시물 내용 출력 칸 늘리기
         contentArea.setFont(font2);
@@ -51,7 +56,7 @@ public class ViewPostForm extends JFrame {
 
         viewCountNameLabel = new JLabel(" 조회수: ");
         viewCountNameLabel.setFont(font1);
-        viewCountNumberLabel = new JLabel("10");
+        viewCountNumberLabel = new JLabel("0");
         viewCountNumberLabel.setFont(font2);
 
         authorNameLabel = new JLabel("작성자: ");
@@ -75,6 +80,19 @@ public class ViewPostForm extends JFrame {
         closeButton.setForeground(Color.WHITE);
         closeButton.setFocusPainted(false);
         closeButton.setPreferredSize(new Dimension(80, 30));
+        closeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (closeButton.getText().equals("닫기")) {
+                    dispose();
+                } else {
+                    board.setBdContent(contentArea.getText());
+                    boardDao.update(board.getBdNo(), board);
+                    DataPool.getInstance().getBoardData().setStatus(boardDao.findAll());
+                    closeButton.setText("닫기");
+                }
+            }
+        });
 
         editButton = new JButton("수정");
         editButton.setFont(font1);
@@ -82,6 +100,14 @@ public class ViewPostForm extends JFrame {
         editButton.setForeground(Color.WHITE);
         editButton.setFocusPainted(false);
         editButton.setPreferredSize(new Dimension(80, 30));
+        editButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                contentArea.setEditable(true);
+                editButton.setVisible(false);
+                closeButton.setText("저장");
+            }
+        });
 
         deleteButton = new JButton("삭제");
         deleteButton.setFont(font1);
@@ -89,13 +115,20 @@ public class ViewPostForm extends JFrame {
         deleteButton.setForeground(Color.WHITE);
         deleteButton.setFocusPainted(false);
         deleteButton.setPreferredSize(new Dimension(80, 30));
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                boardDao.deleteById(board.getBdNo());
+                DataPool.getInstance().getBoardData().setStatus(boardDao.findAll());
+                dispose();
+            }
+        });
 
         JPanel infoPanel = new JPanel();
         infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
         infoPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
         infoPanel.setBackground(Color.WHITE);
         infoPanel.add(titleLabel);
-        infoPanel.add(titleTextLabel);
         infoPanel.add(scrollPane);
         infoPanel.add(Box.createVerticalStrut(2));
 
@@ -138,9 +171,30 @@ public class ViewPostForm extends JFrame {
                 dispose();
             }
         });
-
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        initPost();
         setVisible(true);
     }
 
+    private void initPost() {
+        user = DataPool.getInstance().getLoginData().getUser();
+        board.setBdViewCnt(board.getBdViewCnt() + 1);
+        titleLabel.setText(board.getBdTitle());
+        contentArea.setText(board.getBdContent());
+        viewCountNumberLabel.setText(Integer.toString(board.getBdViewCnt()));
+        authorTextLabel.setText(board.getUserName());
+        userIdTextLabel.setText(board.getUserId());
+        dateTextLabel.setText(board.getBdDate().toString());
+        boardDao.update(board.getBdNo(), board);
+
+        DataPool.getInstance().getBoardData().setStatus(boardDao.findAll());
+        if (user != null && (user.getId().equals(board.getUserId()) || user.getId().equals("admin"))) {
+            deleteButton.setVisible(true);
+            editButton.setVisible(true);
+            System.out.println("true");
+        } else {
+            deleteButton.setVisible(false);
+            editButton.setVisible(false);
+            System.out.println("false");
+        }
+    }
 }

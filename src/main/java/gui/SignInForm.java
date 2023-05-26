@@ -77,7 +77,6 @@ public class SignInForm extends JFrame {
                 // Open the login frame here
                 User user = signInSystem.signIn(new User(idText.getText(), pwText.getText(), null));
                 if (user != null) {
-                    jOptionPane.showMessageDialog(null, "로그인 성공!");
                     dispose();
                 } else {
                     jOptionPane.showMessageDialog(null, "아이디와 비밀번호를 확인해 주세요!");

@@ -4,6 +4,7 @@
  */
 package login;
 
+import model.DataPool;
 import model.userData.User;
 import model.*;
 import model.userData.UserDAO;
@@ -19,7 +20,7 @@ public class SignInSystem {
 
     public SignInSystem() {
         this.userDao = new UserDAO();
-        this.loginData = LoginDataPool.getInstance().getLoginData();
+        this.loginData = DataPool.getInstance().getLoginData();
     }
 
     public User signIn(User user) {
