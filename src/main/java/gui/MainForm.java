@@ -54,10 +54,8 @@ public class MainForm extends JFrame implements Observer {
 
     public MainForm() {
         super("메인 화면");
-
         // Set the layout to null
         setLayout(null);
-
         setSize(1300, 750);
 
         //건물 DAO 객체 생성
@@ -81,8 +79,7 @@ public class MainForm extends JFrame implements Observer {
         titleLabel.setOpaque(true);
         titleLabel.setBackground(new Color(103, 78, 167));
         add(titleLabel);
-        
-        
+
         //로그인 상태 표기
         userLabel = new JLabel("Guest Mode");
         userLabel.setFont(new Font("맑은 고딕", Font.BOLD, 17));
@@ -196,8 +193,8 @@ public class MainForm extends JFrame implements Observer {
                             imageLabel.remove(markerLabel);
                             imageLabel.repaint();
                         }
-                        int x = building.getBuLocateX();
-                        int y = building.getBuLocateY();
+                        int x = imageLabel.getX() + building.getBuLocateX();
+                        int y = imageLabel.getY() + building.getBuLocateY();
                         markerLabel = new JLabel(markerIcon);
                         markerLabel.setBounds(x, y,
                                 markerIcon.getIconWidth(), markerIcon.getIconHeight());
@@ -215,7 +212,7 @@ public class MainForm extends JFrame implements Observer {
                 }
             }
         });
-        
+
         // 인기글 게시판 생성(스크롤 기능)
         String[] popularPostsColumns = {"건물", "작성자", "제목"};
         popularPostsModel = new DefaultTableModel(null, popularPostsColumns);
@@ -226,7 +223,7 @@ public class MainForm extends JFrame implements Observer {
                 return false;
             }
         };
-        
+
         //게시물 조회
         popularPostsTable.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
@@ -251,7 +248,7 @@ public class MainForm extends JFrame implements Observer {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
-    
+
     //게시판 목록 출력
     private void showBoard() {
         boards = (ArrayList) boardDao.findAll();
