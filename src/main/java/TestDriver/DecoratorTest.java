@@ -4,6 +4,8 @@
  */
 package TestDriver;
 
+import model.building.BuildingDAO;
+import model.building.FindByNameBuildingDAO;
 import model.userData.UserDAO;
 
 /**
@@ -12,7 +14,7 @@ import model.userData.UserDAO;
  */
 public class DecoratorTest {
     public static void main(String[] args) {
-        UserDecoratorTest userDecoratorTest = new UserDecoratorTest(new UserDAO());
-        userDecoratorTest.testMethod();
+        TestBuildingDecorator test = new TestBuildingDecorator(new FindByNameBuildingDAO(new BuildingDAO()));
+        test.testMethod(1);
     }
 }

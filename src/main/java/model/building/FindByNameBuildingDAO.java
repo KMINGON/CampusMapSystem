@@ -27,7 +27,6 @@ public class FindByNameBuildingDAO extends DAODecorator<Building, Integer> {
         try {
             String format = "SELECT * FROM %s WHERE buName = '%s'";
             String query = String.format(format, "BUILDING", buName);
-            System.out.println(query);
             rs = stat.executeQuery(query);
             while (rs.next()) {
                 building = new Building(
