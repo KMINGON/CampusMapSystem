@@ -14,7 +14,7 @@ import java.util.List;
  */
 public abstract class DAODecorator<T, ID> extends DAOAbstract<T, ID> {
 
-    DAO<T, ID> dao;
+    protected DAO<T, ID> dao;
 
     public DAODecorator(DAO dao) {
         this.dao = dao;

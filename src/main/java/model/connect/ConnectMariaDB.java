@@ -21,6 +21,7 @@ public class ConnectMariaDB implements ConnectDB {
     private static Connection conn;
 
     public ConnectMariaDB() {    //DB 연결
+        //System.out.println("MariaDB 입니다");
         if (conn == null) {
             try {
                 Class.forName(JDBC_DRIVER);

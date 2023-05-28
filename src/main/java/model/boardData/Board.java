@@ -111,13 +111,13 @@ public class Board {
 
     @Override
     public String toString() {
-        return "userId: " + userId + " / "
-                + "userName: " + userName + " / "
-                + "bdTitle: " + bdTitle + " / "
-                + "bdContent: " + bdContent + " / "
-                + "bdDate: " + bdDate + " / "
-                + "bdViewCnt: " + bdViewCnt + " / "
-                + "bdBuildNum: " + bdBuildNum + " / "
+        return "userId: " + userId + " \n "
+                + "userName: " + userName + " \n "
+                + "bdTitle: " + bdTitle + " \n "
+                + "bdContent: " + bdContent + " \n "
+                + "bdDate: " + bdDate + " \n "
+                + "bdViewCnt: " + bdViewCnt + " \n "
+                + "bdBuildNum: " + bdBuildNum + " \n "
                 + "bdNo: " + bdNo;
     }
     

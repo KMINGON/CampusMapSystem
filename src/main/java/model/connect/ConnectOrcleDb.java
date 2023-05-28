@@ -21,6 +21,7 @@ public class ConnectOrcleDb implements ConnectDB {    //DB 관리
 
     public ConnectOrcleDb() {    //DB 연결
         if (conn == null) {
+            System.out.println("OrcleDB 입니다");
             try {
                 Class.forName(JDBC_DRIVER);
                 conn = DriverManager.getConnection(DB_URL, USER, PW);

@@ -20,6 +20,7 @@ public class ConnectMysqlDb implements ConnectDB{
     private static Connection conn;
 
     public ConnectMysqlDb() {
+        System.out.println("MysqlDB 입니다");
         if (conn == null) {
             try {
                 Class.forName(JDBC_DRIVER);
